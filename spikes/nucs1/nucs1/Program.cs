@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -68,12 +70,60 @@ namespace nucs1 {
         case "scanns":
           ScanNS(parts);
           break;
+        case "monitor":
+          Monitor(parts);
+          break;
         default:
           Console.WriteLine("Unknown Command: '{0}'", cmd);
           break;
       }
 
       return false;
+    }
+
+    private static byte[] GetCS() {
+      using (var file = new FileStream(_Assembly, FileMode.Open, FileAccess.Read)) {
+        MD5 md5 = new MD5CryptoServiceProvider();
+        var buf = md5.ComputeHash(file);
+        file.Close();
+        return buf;
+      }
+    }
+
+    private static bool Diff(byte[] lhs, byte[] rhs) {
+      return lhs.SequenceEqual(rhs);
+    }
+
+    private static void Monitor(string[] parts) {
+      var interval = int.Parse(parts[1]);
+      Console.WriteLine("Monitoring @ {0}", interval);
+
+      var done = false;
+
+      var thread = new Thread(() => {
+        var cs = GetCS();
+        while (!done) {
+          try {
+            Thread.Sleep(interval);
+            Console.WriteLine("checking...");
+
+            var curcs = GetCS();
+
+            if (!Diff(cs, curcs)) {
+              cs = curcs;
+              Go();
+            }
+          } catch (Exception e) {
+            Console.WriteLine(e);
+          }
+        }
+      });
+
+      thread.Start();
+
+      Console.ReadLine();
+      done = true;
+      thread.Join();
     }
 
     //TODO: this will only load it once -- have to move off to a sub domain and load/discard to make it really work
@@ -161,8 +211,6 @@ namespace nucs1 {
           .ToArray();
 
         Array.ForEach(highest, Console.WriteLine);
-
-        //|0|10|20|30|40|50|60|70|80|90|100|200|300|400|500|600|700|800|900|1000+|
 
         var times = XDocument
           .Parse(xml)
