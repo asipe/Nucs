@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using DiffMatchPatch;
 
 namespace nucs1 {
   internal class Program {
@@ -21,6 +22,7 @@ namespace nucs1 {
     }
 
     private static void Execute(string[] args) {
+      _ConfigDir = args[0];
       var terminated = false;
       while (!terminated)
         terminated = SafeExecute();
@@ -83,10 +85,12 @@ namespace nucs1 {
 
     private static byte[] GetCS() {
       using (var file = new FileStream(_Assembly, FileMode.Open, FileAccess.Read)) {
-        MD5 md5 = new MD5CryptoServiceProvider();
-        var buf = md5.ComputeHash(file);
-        file.Close();
-        return buf;
+        using (var md5 = new MD5CryptoServiceProvider()) {
+          var buf = md5.ComputeHash(file);
+          md5.Clear();
+          file.Close();
+          return buf;
+        }
       }
     }
 
@@ -97,6 +101,7 @@ namespace nucs1 {
     private static void Monitor(string[] parts) {
       var interval = int.Parse(parts[1]);
       Console.WriteLine("Monitoring @ {0}", interval);
+      Console.WriteLine("Press Enter To Stop Monitoring");
 
       var done = false;
 
@@ -105,15 +110,15 @@ namespace nucs1 {
         while (!done) {
           try {
             Thread.Sleep(interval);
-            Console.WriteLine("checking...");
-
             var curcs = GetCS();
 
             if (!Diff(cs, curcs)) {
               cs = curcs;
               Go();
+              Console.WriteLine("Press Enter To Stop Monitoring");
             }
           } catch (Exception e) {
+            Console.WriteLine("!!!!!!!  ERROR IN THREAD  !!!!!!!");
             Console.WriteLine(e);
           }
         }
@@ -166,7 +171,7 @@ namespace nucs1 {
     }
 
     private static void Load(string[] parts) {
-      var config = File.ReadAllLines(string.Format("{0}.nucs.config", parts[1]));
+      var config = File.ReadAllLines(Path.Combine(_ConfigDir, string.Format("{0}.nucs.config", parts[1])));
       _Runner = config[0];
       _Assembly = config[1];
       _Run = config[2];
@@ -174,7 +179,7 @@ namespace nucs1 {
     }
 
     private static void Save(string[] parts) {
-      File.WriteAllLines(string.Format("{0}.nucs.config", parts[1]), new[] {_Runner, _Assembly, _Run, _Output});
+      File.WriteAllLines(Path.Combine(_ConfigDir, string.Format("{0}.nucs.config", parts[1])), new[] {_Runner, _Assembly, _Run, _Output});
     }
 
     private static void SetAssembly(IList<string> parts) {
@@ -206,7 +211,7 @@ namespace nucs1 {
                              Time = (int)(decimal.Parse(n.Attribute("time").Value) * 1000)
                            })
           .OrderByDescending(i => i.Time)
-          .Take(20)
+          .Take(10)
           .Select(i => string.Format("{0} : {1}", i.Time, string.Join(".", i.Name.Split('.').Reverse().Take(2).Reverse().ToArray())))
           .ToArray();
 
@@ -239,10 +244,81 @@ namespace nucs1 {
 
         var names = "0-9|10-19|20-29|30-39|40-49|50-59|60-69|70-79|80-89|90-99|100-199|200-299|300-399|400-499|500-599|600-699|700-799|800-899|900-999|1000+".Split('|');
 
-        for (int x = 0; x < names.Length; x++) {
-          Console.WriteLine("{0,10}:  {1}", names[x], Enumerable.Range(0, buckets[x]).Aggregate("", (c, i)=> c + "*"));
+        for (var x = 0; x < names.Length; x++)
+          Console.WriteLine("{0,10}:  {1}", names[x], Enumerable.Range(0, buckets[x]).Aggregate("", (c, i) => c + "*"));
+
+        var _CurCount = XDocument
+          .Parse(xml)
+          .XPathSelectElements("//test-case")
+          .Count();
+
+        var delta = _CurCount - _PreviousCount;
+
+        Console.ForegroundColor = delta == 0 ? ConsoleColor.Yellow : delta < 0 ? ConsoleColor.Red : ConsoleColor.Green;
+        Console.WriteLine("Count Delta: {0}", delta);
+        Console.ResetColor();
+
+        _PreviousCount = _CurCount;
+
+        var counts = XDocument
+          .Parse(xml)
+          .XPathSelectElements("//test-case")
+          .Select(n => n.Attribute("result").Value)
+          .GroupBy(s => s, s => s);
+
+        foreach (var ctype in counts) {
+          if (ctype.Key == "Success")
+            Console.ForegroundColor = ConsoleColor.Green;
+          else
+            Console.ForegroundColor = ConsoleColor.Red;
+          Console.WriteLine("{0}: {1}", ctype.Key, ctype.Count());
+          Console.ResetColor();
         }
-        
+
+        var messages = XDocument
+          .Parse(xml)
+          .XPathSelectElements("//test-case")
+          .Where(n => n.Attribute("result") != null)
+          .Where(n => n.Attribute("result").Value == "Failure")
+          .Select(n => n.XPathSelectElement("./failure/message").Value)
+          .Where(s => s.Contains("\"actual\":") && s.Contains("\"expected\":"))
+          .Select(s => new {
+                             actual = s.Split(new [] {"\"expected\":"}, StringSplitOptions.None)[0],
+                             expected = s.Split(new [] {"\"expected\":"}, StringSplitOptions.None)[1]
+                           })
+          .Select(i => new {
+                             actual = i.actual.Split(new [] {"\"actual\":"}, StringSplitOptions.None)[1].TrimEnd(','),
+                             expected = i.expected.Substring(0, i.expected.LastIndexOf('}'))
+                           })
+          .ToArray();
+
+        var differ = new diff_match_patch();
+        foreach (var msg in messages) {
+          Console.WriteLine("------- ***** -------");
+          var diffs = differ.diff_main(msg.actual, msg.expected);
+
+          foreach (var diff in diffs) {
+            switch (diff.operation) {
+              case Operation.EQUAL:
+                break;
+              case Operation.INSERT:
+                Console.ForegroundColor = ConsoleColor.Green;
+                break;
+              case Operation.DELETE:
+                Console.ForegroundColor = ConsoleColor.Red;
+                break;
+            }
+            Console.Write(diff.text);
+            Console.ResetColor();
+          }
+          Console.WriteLine("------- ***** -------");
+        }
+
+
+        //Console.WriteLine(messages[0].actual);
+        //Console.WriteLine("---");
+        //Console.WriteLine(messages[0].expected);
+          
       }
     }
 
@@ -274,5 +350,11 @@ namespace nucs1 {
     private static string _Run;
     private static string _Assembly;
     private static string _Output;
+    private static int _PreviousCount;
+    private static string _ConfigDir;
+    //private static int _Executions;
+    //private static int _ResultCount;
+    //private static int _Passed;
+    //private static int _Failed;
   }
 }
