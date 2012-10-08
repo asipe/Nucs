@@ -21,7 +21,8 @@ namespace nucs1 {
       }
     }
 
-    private static void Execute(string[] args) {
+    private static void 
+      Execute(string[] args) {
       _ConfigDir = args[0];
       var terminated = false;
       while (!terminated)
@@ -84,13 +85,12 @@ namespace nucs1 {
     }
 
     private static byte[] GetCS() {
-      using (var file = new FileStream(_Assembly, FileMode.Open, FileAccess.Read)) {
-        using (var md5 = new MD5CryptoServiceProvider()) {
-          var buf = md5.ComputeHash(file);
-          md5.Clear();
-          file.Close();
-          return buf;
-        }
+      using (var file = new FileStream(_Assembly, FileMode.Open, FileAccess.Read))
+      using (var md5 = new MD5CryptoServiceProvider()) {
+        var buf = md5.ComputeHash(file);
+        md5.Clear();
+        file.Close();
+        return buf;
       }
     }
 
@@ -106,23 +106,22 @@ namespace nucs1 {
       var done = false;
 
       var thread = new Thread(() => {
-        var cs = GetCS();
-        while (!done) {
-          try {
-            Thread.Sleep(interval);
-            var curcs = GetCS();
+                                var cs = GetCS();
+                                while (!done)
+                                  try {
+                                    Thread.Sleep(interval);
+                                    var curcs = GetCS();
 
-            if (!Diff(cs, curcs)) {
-              cs = curcs;
-              Go();
-              Console.WriteLine("Press Enter To Stop Monitoring");
-            }
-          } catch (Exception e) {
-            Console.WriteLine("!!!!!!!  ERROR IN THREAD  !!!!!!!");
-            Console.WriteLine(e);
-          }
-        }
-      });
+                                    if (!Diff(cs, curcs)) {
+                                      cs = curcs;
+                                      Go();
+                                      Console.WriteLine("Press Enter To Stop Monitoring");
+                                    }
+                                  } catch (Exception e) {
+                                    Console.WriteLine("!!!!!!!  ERROR IN THREAD  !!!!!!!");
+                                    Console.WriteLine(e);
+                                  }
+                              });
 
       thread.Start();
 
@@ -226,21 +225,20 @@ namespace nucs1 {
           .OrderBy(d => d)
           .ToArray();
 
-        var buckets = new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var buckets = new[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        foreach (var t in times) {
+        foreach (var t in times)
           if (t >= 1000)
             ++buckets[19];
           else if (t == 0)
             ++buckets[0];
           else if (t >= 100) {
             var idx = t / 100;
-            ++buckets[idx+9];
+            ++buckets[idx + 9];
           } else {
             var idx = t / 10;
-            ++buckets[idx];            
+            ++buckets[idx];
           }
-        }
 
         var names = "0-9|10-19|20-29|30-39|40-49|50-59|60-69|70-79|80-89|90-99|100-199|200-299|300-399|400-499|500-599|600-699|700-799|800-899|900-999|1000+".Split('|');
 
@@ -267,10 +265,7 @@ namespace nucs1 {
           .GroupBy(s => s, s => s);
 
         foreach (var ctype in counts) {
-          if (ctype.Key == "Success")
-            Console.ForegroundColor = ConsoleColor.Green;
-          else
-            Console.ForegroundColor = ConsoleColor.Red;
+          Console.ForegroundColor = ctype.Key == "Success" ? ConsoleColor.Green : ConsoleColor.Red;
           Console.WriteLine("{0}: {1}", ctype.Key, ctype.Count());
           Console.ResetColor();
         }
@@ -283,11 +278,11 @@ namespace nucs1 {
           .Select(n => n.XPathSelectElement("./failure/message").Value)
           .Where(s => s.Contains("\"actual\":") && s.Contains("\"expected\":"))
           .Select(s => new {
-                             actual = s.Split(new [] {"\"expected\":"}, StringSplitOptions.None)[0],
-                             expected = s.Split(new [] {"\"expected\":"}, StringSplitOptions.None)[1]
+                             actual = s.Split(new[] {"\"expected\":"}, StringSplitOptions.None)[0],
+                             expected = s.Split(new[] {"\"expected\":"}, StringSplitOptions.None)[1]
                            })
           .Select(i => new {
-                             actual = i.actual.Split(new [] {"\"actual\":"}, StringSplitOptions.None)[1].TrimEnd(','),
+                             actual = i.actual.Split(new[] {"\"actual\":"}, StringSplitOptions.None)[1].TrimEnd(','),
                              expected = i.expected.Substring(0, i.expected.LastIndexOf('}'))
                            })
           .ToArray();
@@ -314,11 +309,9 @@ namespace nucs1 {
           Console.WriteLine("------- ***** -------");
         }
 
-
         //Console.WriteLine(messages[0].actual);
         //Console.WriteLine("---");
         //Console.WriteLine(messages[0].expected);
-          
       }
     }
 
