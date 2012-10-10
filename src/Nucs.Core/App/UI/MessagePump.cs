@@ -12,7 +12,7 @@ namespace Nucs.Core.App.UI {
       mHandler.Handle(mUI.ReadLine());
     }
 
-    private readonly IUserInterface mUI;
     private readonly IHandler mHandler;
+    private readonly IUserInterface mUI;
   }
 }
