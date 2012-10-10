@@ -1,5 +1,9 @@
 bin
-
 obj
-_ReSharper.nucs1
+_ReSharper.*
+*.user
+*.suo
+vsdebug
+debug
+test_results
 

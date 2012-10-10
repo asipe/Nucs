@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<project name="Build" basedir=".">
+  <property name="nant.settings.currentframework" value="net-4.0"/>
+  <property name="debug.status" value="Full"/>
+  <property name="root.dir" value="${project::get-base-directory()}" readonly="true"/>
+  <property name="src.dir" value="${root.dir}\src" readonly="true"/>
+  <property name="debug.dir" value="${root.dir}\debug" readonly="true"/>
+  <property name="apps.dir" value="${debug.dir}\apps" readonly="true"/>
+  <property name="lib.dir" value="${src.dir}\lib" readonly="true"/>
+  <property name="vsdebug.dir" value="${root.dir}\vsdebug" readonly="true"/>
+  <property name="test.results.dir" value="${root.dir}\test_results" readonly="true"/>
+  <property name="nunit.test.assembly" value=""/>
+  <property name="nunit.exe" value="nunit-console.exe"/>
+  <property name="verbose" value="false" overwrite="false"/>
+
+  <target name="ExecuteTests">
+    <exec program="thirdparty\nunit\bin\${nunit.exe}"
+          verbose="${verbose}"
+          commandline="${debug.dir}\${nunit.test.assembly} /xml=test_results/${nunit.test.assembly}_results.xml /noshadow"
+          workingdir="${root.dir}"
+          failonerror="true"/>
+  </target>
+  
+  <target name="Clean">
+    <delete dir="${debug.dir}"/>
+    <mkdir dir="${debug.dir}"/>
+    <delete dir="${test.results.dir}"/>
+    <mkdir dir="${test.results.dir}"/> 
+
+    <copy todir="${debug.dir}" flatten="true">
+      <fileset basedir="${lib.dir}">
+        <include name="*.*"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <!--
+  <target name="Build.SupaCharge">
+    <exec program="thirdparty\nant\bin\nant.exe"
+          workingdir="submodules\supacharge"
+          commandline="Clean Build.All Run.Tests -D:current.framework=net-4.0 -D:lib.dir=${lib.dir} -D:nunit.exe=${root.dir}\thirdparty\nunit\bin\nunit-console.exe -D:verbose=true"
+          failonerror="true"
+          verbose="${verbose}" />
+
+    <copy todir="${lib.dir}" flatten="true">
+      <fileset basedir="submodules\supacharge\debug\">
+        <include name="SupaCharge*.dll"/>
+      </fileset>
+    </copy>
+  </target>
+  -->
+
+  <target name="Build.Nucs.Core">
+    <csc debug="${debug.status}" target="library" output="${debug.dir}\Nucs.Core.dll" warnaserror="true">
+      <sources basedir="${src.dir}">
+        <include name="Nucs.Core\**\*.cs"/>
+        <include name="Properties\*.cs"/>
+      </sources>
+    </csc>
+  </target>
+
+  <target name="Build.Nucs.Console" depends="Build.Nucs.Core">
+    <property name="exe.output.dir" value="${apps.dir}\Nucs.Console"/>
+    
+    <mkdir dir="${exe.output.dir}" />
+    
+    <csc debug="${debug.status}" target="exe" output="${exe.output.dir}\Nucs.exe" warnaserror="true">
+      <sources basedir="${src.dir}">
+        <include name="Nucs.Console\**\*.cs"/>
+        <include name="Properties\*.cs"/>
+      </sources>
+    </csc>
+
+    <copy todir="${exe.output.dir}" verbose="${verbose}">
+      <fileset basedir="${debug.dir}">
+        <include name="Nucs.Core.dll"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="Build.Nucs.UnitTests" depends="Build.Nucs.Core">
+    <csc debug="${debug.status}" target="library" output="${debug.dir}\Nucs.UnitTests.dll" warnaserror="true">
+      <sources basedir="${src.dir}">
+        <include name="Nucs.UnitTests\**\*.cs"/>
+        <include name="Properties\*.cs"/>
+      </sources>
+      <references basedir="${debug.dir}" >
+        <include name="Nucs.core.dll"/>
+        <include name="nunit.framework.dll"/>
+        <include name="moq.dll"/>
+        <include name="Ploeh.AutoFixture.dll"/>
+      </references>
+    </csc>
+  </target>
+
+  <target name="Build.All" depends="Build.Nucs.Console,
+                                    Build.Nucs.UnitTests"/>
+  
+  <target name="Run_Nucs.UnitTests" depends="Build.Nucs.UnitTests">
+    <property name="nunit.test.assembly" value="Nucs.UnitTests.dll"/>
+    <call target="ExecuteTests"/>
+  </target>
+
+  <target name="Init.Nucs.VSDebug">
+    <mkdir dir="${vsdebug.dir}" verbose="${verbose}"/>
+    <copy todir="${vsdebug.dir}" verbose="${verbose}">
+      <fileset basedir="${lib.dir}">
+        <include name="*.dll"/>
+        <include name="*.pdb"/>
+      </fileset>
+    </copy>
+  </target>  
+</project>
+  
+  
