@@ -83,9 +83,9 @@
         <include name="Properties\*.cs"/>
       </sources>
       <references basedir="${debug.dir}" >
-        <include name="Nucs.core.dll"/>
-        <include name="nunit.framework.dll"/>
-        <include name="moq.dll"/>
+        <include name="Nucs.Core.dll"/>
+        <include name="Nunit.Framework.dll"/>
+        <include name="Moq.dll"/>
         <include name="Ploeh.AutoFixture.dll"/>
         <include name="SupaCharge.Testing.dll"/>
       </references>
@@ -99,6 +99,8 @@
     <property name="nunit.test.assembly" value="Nucs.UnitTests.dll"/>
     <call target="ExecuteTests"/>
   </target>
+
+  <target name="Cycle" depends ="Build.All, Run_Nucs.UnitTests"/>
 
   <target name="Init.Nucs.VSDebug">
     <mkdir dir="${vsdebug.dir}" verbose="${verbose}"/>
