@@ -34,7 +34,6 @@
     </copy>
   </target>
 
-  <!--
   <target name="Build.SupaCharge">
     <exec program="thirdparty\nant\bin\nant.exe"
           workingdir="submodules\supacharge"
@@ -42,13 +41,12 @@
           failonerror="true"
           verbose="${verbose}" />
 
-    <copy todir="${lib.dir}" flatten="true">
+    <copy todir="${lib.dir}" flatten="true" verbose="${verbose}">
       <fileset basedir="submodules\supacharge\debug\">
         <include name="SupaCharge*.dll"/>
       </fileset>
     </copy>
   </target>
-  -->
 
   <target name="Build.Nucs.Core">
     <csc debug="${debug.status}" target="library" output="${debug.dir}\Nucs.Core.dll" warnaserror="true">
