@@ -87,6 +87,7 @@
         <include name="nunit.framework.dll"/>
         <include name="moq.dll"/>
         <include name="Ploeh.AutoFixture.dll"/>
+        <include name="SupaCharge.Testing.dll"/>
       </references>
     </csc>
   </target>
