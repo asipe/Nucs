@@ -64,7 +64,10 @@
     <Compile Include="..\Properties\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="SampleTest.cs" />
+    <Compile Include="App\Controller\SystemControllerTest.cs" />
+    <Compile Include="App\DriverTest.cs" />
+    <Compile Include="App\UI\CLI\CommandLineInterfaceTest.cs" />
+    <Compile Include="App\UI\MessagePumpTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

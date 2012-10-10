@@ -67,6 +67,9 @@
         <include name="Nucs.Console\**\*.cs"/>
         <include name="Properties\*.cs"/>
       </sources>
+      <references basedir="${debug.dir}" >
+        <include name="Nucs.Core.dll"/>
+      </references>
     </csc>
 
     <copy todir="${exe.output.dir}" verbose="${verbose}">

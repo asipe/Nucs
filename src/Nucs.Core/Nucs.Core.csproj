@@ -39,6 +39,15 @@
     <Compile Include="..\Properties\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="App\Command\ICommand.cs" />
+    <Compile Include="App\Command\IHandler.cs" />
+    <Compile Include="App\Controller\IController.cs" />
+    <Compile Include="App\Controller\SystemController.cs" />
+    <Compile Include="App\Driver.cs" />
+    <Compile Include="App\UI\CLI\CommandLineInterface.cs" />
+    <Compile Include="App\UI\IMessagePump.cs" />
+    <Compile Include="App\UI\IUserInterface.cs" />
+    <Compile Include="App\UI\MessagePump.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
