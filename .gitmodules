@@ -1,0 +1,3 @@
+[submodule "submodules/SupaCharge"]
+	path = submodules/SupaCharge
+	url = git@github.com:asipe/SupaCharge.git
