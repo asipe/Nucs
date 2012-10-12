@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Z Bar Technologies, LLC")]
-[assembly: AssemblyProduct("Lenz")]
+[assembly: AssemblyProduct("Nucs")]
 [assembly: AssemblyCopyright("(c) 2012 Andy Sipe (ajs.general@gmail.com), Morgan Sipe (morgan.talk@gmail.com)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -56,8 +56,25 @@
       </sources>
     </csc>
   </target>
+  
+  <target name="Build.Nucs.App" depends="Build.Nucs.Core">
+    <csc debug="${debug.status}" target="library" output="${debug.dir}\Nucs.App.dll" warnaserror="true">
+      <sources basedir="${src.dir}">
+        <include name="Nucs.App\**\*.cs"/>
+        <include name="Properties\*.cs"/>
+      </sources>
+      <references basedir="${debug.dir}" >
+        <include name="Autofac.dll"/>
+        <include name="System.Net.Http.dll"/>
+        <include name="System.Net.Http.WebRequest.dll"/>
+        <include name="System.Web.Http.dll"/>
+        <include name="System.Web.Http.SelfHost.dll"/>
+        <include name="Nucs.Core.dll"/>
+      </references>
+    </csc>
+  </target>
 
-  <target name="Build.Nucs.Console" depends="Build.Nucs.Core">
+  <target name="Build.Nucs.Console" depends="Build.Nucs.App">
     <property name="exe.output.dir" value="${apps.dir}\Nucs.Console"/>
     
     <mkdir dir="${exe.output.dir}" />
@@ -69,28 +86,51 @@
       </sources>
       <references basedir="${debug.dir}" >
         <include name="Nucs.Core.dll"/>
+        <include name="Nucs.App.dll"/>
       </references>
     </csc>
 
     <copy todir="${exe.output.dir}" verbose="${verbose}">
       <fileset basedir="${debug.dir}">
         <include name="Nucs.Core.dll"/>
+        <include name="Nucs.App.dll"/>
+        <include name="Autofac.dll"/>
+        <include name="System.Net.Http.dll"/>
+        <include name="System.Net.Http.WebRequest.dll"/>
+        <include name="System.Web.Http.dll"/>
+        <include name="System.Web.Http.SelfHost.dll"/>
+        <include name="System.Net.Http.Formatting.dll"/>
+        <include name="Newtonsoft.Json.dll"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${exe.output.dir}" verbose="${verbose}">
+      <fileset basedir="${src.dir}\Nucs.App">
+        <include name="css\**\*.*"/>
+        <include name="scripts\**\*.*"/>
+        <include name="views\**\*.*"/>
       </fileset>
     </copy>
   </target>
 
-  <target name="Build.Nucs.UnitTests" depends="Build.Nucs.Core">
+  <target name="Build.Nucs.UnitTests" depends="Build.Nucs.App">
     <csc debug="${debug.status}" target="library" output="${debug.dir}\Nucs.UnitTests.dll" warnaserror="true">
       <sources basedir="${src.dir}">
         <include name="Nucs.UnitTests\**\*.cs"/>
         <include name="Properties\*.cs"/>
       </sources>
       <references basedir="${debug.dir}" >
-        <include name="Nucs.Core.dll"/>
+        <include name="Autofac.dll"/>
         <include name="Nunit.Framework.dll"/>
         <include name="Moq.dll"/>
         <include name="Ploeh.AutoFixture.dll"/>
         <include name="SupaCharge.Testing.dll"/>
+        <include name="System.Net.Http.dll"/>
+        <include name="System.Net.Http.WebRequest.dll"/>
+        <include name="System.Web.Http.dll"/>
+        <include name="System.Web.Http.SelfHost.dll"/>
+        <include name="Nucs.Core.dll"/>
+        <include name="Nucs.App.dll"/>
       </references>
     </csc>
   </target>

@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nucs.Console", "Nucs.Console\Nucs.Console.csproj", "{E130F550-DC61-4DB7-9CDC-82D86A2ABCEB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8E11022D-11F9-4D85-8306-AC7C0FCDB4D1} = {8E11022D-11F9-4D85-8306-AC7C0FCDB4D1}
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9} = {BA0EEFE2-066F-4ABD-8704-9743715EB9F9}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nucs.Core", "Nucs.Core\Nucs.Core.csproj", "{8E11022D-11F9-4D85-8306-AC7C0FCDB4D1}"
@@ -11,11 +12,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nucs.UnitTests", "Nucs.UnitTests\Nucs.UnitTests.csproj", "{6BFC04EF-C356-4F4B-A0CE-E3A3578A0E96}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8E11022D-11F9-4D85-8306-AC7C0FCDB4D1} = {8E11022D-11F9-4D85-8306-AC7C0FCDB4D1}
+		{E130F550-DC61-4DB7-9CDC-82D86A2ABCEB} = {E130F550-DC61-4DB7-9CDC-82D86A2ABCEB}
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9} = {BA0EEFE2-066F-4ABD-8704-9743715EB9F9}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{ABF65073-9C59-4CE9-964C-592909646E03}"
 	ProjectSection(SolutionItems) = preProject
 		..\default.build = ..\default.build
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nucs.App", "Nucs.App\Nucs.App.csproj", "{BA0EEFE2-066F-4ABD-8704-9743715EB9F9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8E11022D-11F9-4D85-8306-AC7C0FCDB4D1} = {8E11022D-11F9-4D85-8306-AC7C0FCDB4D1}
 	EndProjectSection
 EndProject
 Global
@@ -58,6 +66,16 @@ Global
 		{6BFC04EF-C356-4F4B-A0CE-E3A3578A0E96}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6BFC04EF-C356-4F4B-A0CE-E3A3578A0E96}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6BFC04EF-C356-4F4B-A0CE-E3A3578A0E96}.Release|x86.ActiveCfg = Release|Any CPU
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BA0EEFE2-066F-4ABD-8704-9743715EB9F9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
