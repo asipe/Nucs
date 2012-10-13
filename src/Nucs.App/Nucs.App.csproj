@@ -79,10 +79,14 @@
     <Content Include="views\index\index.html" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Css\CssController.cs" />
     <Compile Include="Controllers\Index\IndexController.cs" />
+    <Compile Include="Controllers\Js\JsController.cs" />
     <Compile Include="Dependency\DependencyResolver.cs" />
+    <Compile Include="Dependency\Modules\CssControllerModule.cs" />
     <Compile Include="Dependency\Modules\IndexControllerModule.cs" />
     <Compile Include="Dependency\Modules\IOAbstractionsModule.cs" />
+    <Compile Include="Dependency\Modules\JsControllerModule.cs" />
     <Compile Include="Dependency\Modules\ModuleConfiguration.cs" />
     <Compile Include="Main\Runner.cs" />
   </ItemGroup>

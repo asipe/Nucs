@@ -80,7 +80,9 @@
     <Compile Include="..\Properties\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="App\Controllers\Css\CssControllerTest.cs" />
     <Compile Include="App\Controllers\Index\IndexControllerTest.cs" />
+    <Compile Include="App\Controllers\Js\JsControllerTest.cs" />
     <Compile Include="App\Dependency\DependencyResolverTest.cs" />
   </ItemGroup>
   <ItemGroup>

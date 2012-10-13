@@ -5,6 +5,8 @@ namespace Nucs.App.Dependency.Modules {
     public void Initialize(ContainerBuilder builder) {
       builder.RegisterModule(new IOAbstractionsModule());
       builder.RegisterModule(new IndexControllerModule());
+      builder.RegisterModule(new CssControllerModule());
+      builder.RegisterModule(new JsControllerModule());
     }
   }
 }

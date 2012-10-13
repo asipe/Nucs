@@ -30,6 +30,8 @@ namespace Nucs.App.Main {
 
     private static void ConfigureRoutes(HttpConfiguration config) {
       config.Routes.MapHttpRoute("default", "index.html", new {controller = "Index"});
+      config.Routes.MapHttpRoute("css", "css/nucs.css", new {controller = "Css"});
+      config.Routes.MapHttpRoute("js", "scripts/nucs.js", new {controller = "Js"});
     }
 
     private static void ConfigureDependencyResolver(HttpConfiguration config) {
