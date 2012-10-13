@@ -36,6 +36,11 @@
       <HintPath>..\..\vsdebug\Autofac.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="MadCat.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vsdebug\MadCat.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Nucs.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vsdebug\Nucs.Core.dll</HintPath>

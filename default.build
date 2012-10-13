@@ -71,6 +71,7 @@
         <include name="System.Web.Http.SelfHost.dll"/>
         <include name="SupaCharge.Core.dll"/>
         <include name="Nucs.Core.dll"/>
+        <include name="MadCat.Core.dll"/>
       </references>
     </csc>
   </target>
@@ -88,6 +89,7 @@
       <references basedir="${debug.dir}" >
         <include name="Nucs.Core.dll"/>
         <include name="Nucs.App.dll"/>
+        <include name="MadCat.Core.dll"/>
       </references>
     </csc>
 
@@ -103,6 +105,7 @@
         <include name="System.Net.Http.Formatting.dll"/>
         <include name="Newtonsoft.Json.dll"/>
         <include name="SupaCharge.Core.dll"/>
+        <include name="MadCat.Core.dll"/>
       </fileset>
     </copy>
 
@@ -134,6 +137,7 @@
         <include name="SupaCharge.Core.dll"/>
         <include name="Nucs.Core.dll"/>
         <include name="Nucs.App.dll"/>
+        <include name="MadCat.Core.dll"/>
       </references>
     </csc>
   </target>

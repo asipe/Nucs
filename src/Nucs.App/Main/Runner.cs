@@ -2,25 +2,25 @@
 using System.Web.Http;
 using System.Web.Http.SelfHost;
 using Autofac;
+using MadCat.Core;
 using Nucs.App.Dependency;
 using Nucs.App.Dependency.Modules;
 
 namespace Nucs.App.Main {
   public class Runner {
-    public void Start() {
+    public void Start(IConfig appConfig) {
       try {
-        DoStart();
+        DoStart(appConfig);
       } catch (Exception e) {
-        Console.WriteLine(e.Message);
-        Console.WriteLine(e.StackTrace);
+        Console.WriteLine(e);
       }
     }
 
-    private static void DoStart() {
-      var config = new HttpSelfHostConfiguration("http://localhost:49991");
-      ConfigureRoutes(config);
-      ConfigureDependencyResolver(config);
-      using (var server = new HttpSelfHostServer(config)) {
+    private static void DoStart(IConfig appConfig) {
+      var httpConfig = new HttpSelfHostConfiguration("http://localhost:49991");
+      ConfigureRoutes(httpConfig);
+      ConfigureDependencyResolver(httpConfig, appConfig);
+      using (var server = new HttpSelfHostServer(httpConfig)) {
         server.OpenAsync().Wait();
         Console.WriteLine("Press Enter to quit.");
         Console.ReadLine();
@@ -28,16 +28,16 @@ namespace Nucs.App.Main {
       }
     }
 
-    private static void ConfigureRoutes(HttpConfiguration config) {
-      config.Routes.MapHttpRoute("default", "index.html", new {controller = "Index"});
-      config.Routes.MapHttpRoute("css", "css/nucs.css", new {controller = "Css"});
-      config.Routes.MapHttpRoute("js", "scripts/nucs.js", new {controller = "Js"});
+    private static void ConfigureRoutes(HttpConfiguration httpConfig) {
+      httpConfig.Routes.MapHttpRoute("default", "index.html", new {controller = "Index"});
+      httpConfig.Routes.MapHttpRoute("css", "css/nucs.css", new {controller = "Css"});
+      httpConfig.Routes.MapHttpRoute("js", "scripts/nucs.js", new {controller = "Js"});
     }
 
-    private static void ConfigureDependencyResolver(HttpConfiguration config) {
+    private static void ConfigureDependencyResolver(HttpConfiguration httpConfig, IConfig appConfig) {
       var builder = new ContainerBuilder();
-      new ModuleConfiguration().Initialize(builder);
-      config.DependencyResolver = new DependencyResolver(builder.Build());
+      new ModuleConfiguration(appConfig).Initialize(builder);
+      httpConfig.DependencyResolver = new DependencyResolver(builder.Build());
     }
   }
 }
