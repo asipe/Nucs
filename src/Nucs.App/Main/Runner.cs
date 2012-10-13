@@ -28,11 +28,11 @@ namespace Nucs.App.Main {
       }
     }
 
-    private static void ConfigureRoutes(HttpSelfHostConfiguration config) {
+    private static void ConfigureRoutes(HttpConfiguration config) {
       config.Routes.MapHttpRoute("default", "index.html", new {controller = "Index"});
     }
 
-    private static void ConfigureDependencyResolver(HttpSelfHostConfiguration config) {
+    private static void ConfigureDependencyResolver(HttpConfiguration config) {
       var builder = new ContainerBuilder();
       new ModuleConfiguration().Initialize(builder);
       config.DependencyResolver = new DependencyResolver(builder.Build());

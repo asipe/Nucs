@@ -41,6 +41,11 @@
       <HintPath>..\..\vsdebug\Nucs.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SupaCharge.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vsdebug\SupaCharge.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,6 +81,8 @@
   <ItemGroup>
     <Compile Include="Controllers\Index\IndexController.cs" />
     <Compile Include="Dependency\DependencyResolver.cs" />
+    <Compile Include="Dependency\Modules\IndexControllerModule.cs" />
+    <Compile Include="Dependency\Modules\IOAbstractionsModule.cs" />
     <Compile Include="Dependency\Modules\ModuleConfiguration.cs" />
     <Compile Include="Main\Runner.cs" />
   </ItemGroup>

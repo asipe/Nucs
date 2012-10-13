@@ -56,6 +56,11 @@
       <HintPath>..\..\vsdebug\nunit.framework.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SupaCharge.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vsdebug\SupaCharge.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="SupaCharge.Testing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vsdebug\SupaCharge.Testing.dll</HintPath>
@@ -74,6 +79,7 @@
     <Compile Include="..\Properties\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="App\Controllers\Index\IndexControllerTest.cs" />
     <Compile Include="App\Dependency\DependencyResolverTest.cs" />
   </ItemGroup>
   <ItemGroup>
