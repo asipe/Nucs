@@ -1,4 +1,10 @@
-﻿body
-{
-  font-weight: bold;
+﻿input {
+  display:block;
+  width: 90%;
+}
+
+.nucs-status {
+}
+
+.nucs-cmd-results {
 }
