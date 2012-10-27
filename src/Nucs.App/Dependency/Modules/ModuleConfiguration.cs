@@ -9,9 +9,9 @@ namespace Nucs.App.Dependency.Modules {
 
     public void Initialize(ContainerBuilder builder) {
       builder.RegisterModule(new IOAbstractionsModule());
-      builder.RegisterModule(new IndexControllerModule());
-      builder.RegisterModule(new CssControllerModule());
-      builder.RegisterModule(new JsControllerModule());
+      builder.RegisterModule(new IndexControllerModule(mConfig));
+      builder.RegisterModule(new CssControllerModule(mConfig));
+      builder.RegisterModule(new JsControllerModule(mConfig));
     }
 
     private readonly IConfig mConfig;

@@ -1,3 +1,4 @@
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -6,8 +7,9 @@ using SupaCharge.Core.IOAbstractions;
 
 namespace Nucs.App.Controllers.Js {
   public class JsController : ApiController {
-    public JsController(IFile file) {
+    public JsController(IFile file, string assetDir) {
       mFile = file;
+      mAssetDir = assetDir;
     }
 
     public HttpResponseMessage Get() {
@@ -17,9 +19,10 @@ namespace Nucs.App.Controllers.Js {
     }
 
     private string LoadJs() {
-      return mFile.ReadAllText(@"scripts\nucs.js");
+      return mFile.ReadAllText(Path.Combine(mAssetDir, @"scripts\nucs.js"));
     }
 
     private readonly IFile mFile;
+    private readonly string mAssetDir;
   }
 }

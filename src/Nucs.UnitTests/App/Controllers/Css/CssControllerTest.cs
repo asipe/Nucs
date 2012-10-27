@@ -9,7 +9,7 @@ namespace Nucs.UnitTests.App.Controllers.Css {
   public class CssControllerTest : BaseTestCase {
     [Test]
     public void TestExecute() {
-      mFile.Setup(f => f.ReadAllText(@"css\nucs.css")).Returns("css");
+      mFile.Setup(f => f.ReadAllText(@"c:\app\assets\css\nucs.css")).Returns("css");
       var resp = mController.Get();
       Assert.That(resp.Content.Headers.ContentType.MediaType, Is.EqualTo("text/css"));
       var task = resp.Content.ReadAsStringAsync();
@@ -20,7 +20,7 @@ namespace Nucs.UnitTests.App.Controllers.Css {
     [SetUp]
     public void DoSetup() {
       mFile = Mok<IFile>();
-      mController = new CssController(mFile.Object);
+      mController = new CssController(mFile.Object, @"c:\app\assets");
     }
 
     private Mock<IFile> mFile;

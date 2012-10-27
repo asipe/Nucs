@@ -9,7 +9,7 @@ namespace Nucs.UnitTests.App.Controllers.Js {
   public class JsControllerTest : BaseTestCase {
     [Test]
     public void TestExecute() {
-      mFile.Setup(f => f.ReadAllText(@"scripts\nucs.js")).Returns("js");
+      mFile.Setup(f => f.ReadAllText(@"c:\app\assets\scripts\nucs.js")).Returns("js");
       var resp = mController.Get();
       Assert.That(resp.Content.Headers.ContentType.MediaType, Is.EqualTo("text/javascript"));
       var task = resp.Content.ReadAsStringAsync();
@@ -20,7 +20,7 @@ namespace Nucs.UnitTests.App.Controllers.Js {
     [SetUp]
     public void DoSetup() {
       mFile = Mok<IFile>();
-      mController = new JsController(mFile.Object);
+      mController = new JsController(mFile.Object, @"c:\app\assets");
     }
 
     private Mock<IFile> mFile;

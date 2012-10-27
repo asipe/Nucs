@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
@@ -6,8 +7,9 @@ using SupaCharge.Core.IOAbstractions;
 
 namespace Nucs.App.Controllers.Index {
   public class IndexController : ApiController {
-    public IndexController(IFile file) {
+    public IndexController(IFile file, string assetDir) {
       mFile = file;
+      mAssetDir = assetDir;
     }
 
     public HttpResponseMessage Get() {
@@ -17,9 +19,10 @@ namespace Nucs.App.Controllers.Index {
     }
 
     private string LoadHtml() {
-      return mFile.ReadAllText(@"views\index\index.html");
+      return mFile.ReadAllText(Path.Combine(mAssetDir, @"views\index\index.html"));
     }
 
     private readonly IFile mFile;
+    private readonly string mAssetDir;
   }
 }

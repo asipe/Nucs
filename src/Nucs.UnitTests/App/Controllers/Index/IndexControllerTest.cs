@@ -9,7 +9,7 @@ namespace Nucs.UnitTests.App.Controllers.Index {
   public class IndexControllerTest : BaseTestCase {
     [Test]
     public void TestExecute() {
-      mFile.Setup(f => f.ReadAllText(@"views\index\index.html")).Returns("html");
+      mFile.Setup(f => f.ReadAllText(@"c:\app\assets\views\index\index.html")).Returns("html");
       var resp = mController.Get();
       Assert.That(resp.Content.Headers.ContentType.MediaType, Is.EqualTo("text/html"));
       var task = resp.Content.ReadAsStringAsync();
@@ -20,7 +20,7 @@ namespace Nucs.UnitTests.App.Controllers.Index {
     [SetUp]
     public void DoSetup() {
       mFile = Mok<IFile>();
-      mController = new IndexController(mFile.Object);
+      mController = new IndexController(mFile.Object, @"c:\app\assets");
     }
 
     private Mock<IFile> mFile;
