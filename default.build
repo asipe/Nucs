@@ -81,7 +81,7 @@
     
     <mkdir dir="${exe.output.dir}" />
     
-    <csc debug="${debug.status}" target="exe" output="${exe.output.dir}\Nucs.exe" warnaserror="true">
+    <csc debug="${debug.status}" target="exe" output="${exe.output.dir}\nucs.exe" warnaserror="true">
       <sources basedir="${src.dir}">
         <include name="Nucs.Console\**\*.cs"/>
         <include name="Properties\*.cs"/>
@@ -116,6 +116,14 @@
         <include name="views\**\*.*"/>
       </fileset>
     </copy>
+    
+    <copy todir="${exe.output.dir}" verbose="${verbose}">
+      <fileset basedir="${src.dir}\Nucs.Console">
+        <include name="App.config"/>
+      </fileset>
+    </copy>
+
+    <copy file="${exe.output.dir}\App.config" tofile="${exe.output.dir}\nucs.exe.config" verbose="${verbose}"/>
   </target>
 
   <target name="Build.Nucs.UnitTests" depends="Build.Nucs.App">
