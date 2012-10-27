@@ -3,8 +3,12 @@
   width: 90%;
 }
 
-.nucs-status {
+body > div {
+  height: 25em;
+  border: 1px solid black;
+  overflow: auto;
 }
 
-.nucs-cmd-results {
+body > div:last-child {
+  height:5em;
 }
