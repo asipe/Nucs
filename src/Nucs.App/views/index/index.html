@@ -7,12 +7,15 @@
     <link rel="stylesheet" type="text/css" href="css/nucs.css" />
     
     <script type="text/javascript">
+      function log(msg) {
+        $('<p></p>').append(msg).prependTo($('#cmdresults'));
+      }
+      
       function go() {
         var cmd = $('#cmdline').val();
-        $('<p></p>').append('Executing: ' + cmd).prependTo($('#cmdresults'));
-        $.get('api/plan')
-         .done(function (d) { alert(d); })
-         .fail(function () { alert('failed'); });
+        $.getJSON('api/plan/get')
+          .done(function (d) { log(JSON.stringify(d)); })
+          .fail(function (evt, err, msg) {log(err + ' - ' + msg);});
       }
       
       function init() {
