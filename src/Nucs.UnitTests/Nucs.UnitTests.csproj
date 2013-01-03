@@ -83,6 +83,7 @@
     <Compile Include="App\Controllers\Css\CssControllerTest.cs" />
     <Compile Include="App\Controllers\Index\IndexControllerTest.cs" />
     <Compile Include="App\Controllers\Js\JsControllerTest.cs" />
+    <Compile Include="App\Controllers\PlanControllerTest.cs" />
     <Compile Include="App\Dependency\DependencyResolverTest.cs" />
     <Compile Include="Core\Model\External\PlanDetailTest.cs" />
     <Compile Include="Core\Model\PlanTest.cs" />
