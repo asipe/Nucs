@@ -93,6 +93,7 @@
     <Compile Include="Core\Model\External\PlanDetailTest.cs" />
     <Compile Include="Core\Model\PlanTest.cs" />
     <Compile Include="Core\Storage\PlanStoreTest.cs" />
+    <Compile Include="NucsBaseTestCase.cs" />
     <Compile Include="Serialization\SerializerTest.cs" />
   </ItemGroup>
   <ItemGroup>
