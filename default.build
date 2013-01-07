@@ -56,6 +56,7 @@
       </sources>
       <references basedir="${debug.dir}">
         <include name="SupaCharge.Core.dll"/>
+        <include name="Newtonsoft.Json.dll"/>
       </references>
     </csc>
   </target>
@@ -149,6 +150,7 @@
         <include name="Nucs.Core.dll"/>
         <include name="Nucs.App.dll"/>
         <include name="MadCat.Core.dll"/>
+        <include name="KellermanSoftware.Compare-NET-Objects.dll"/>
       </references>
     </csc>
   </target>

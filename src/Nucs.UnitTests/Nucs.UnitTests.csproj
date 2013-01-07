@@ -36,6 +36,11 @@
       <HintPath>..\..\vsdebug\Autofac.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=1.6.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vsdebug\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Moq, Version=3.1.416.3, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vsdebug\Moq.dll</HintPath>
@@ -88,6 +93,7 @@
     <Compile Include="Core\Model\External\PlanDetailTest.cs" />
     <Compile Include="Core\Model\PlanTest.cs" />
     <Compile Include="Core\Storage\PlanStoreTest.cs" />
+    <Compile Include="Serialization\SerializerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
