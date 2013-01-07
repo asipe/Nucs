@@ -2,11 +2,10 @@ using Moq;
 using NUnit.Framework;
 using Nucs.App.Controllers.Js;
 using SupaCharge.Core.IOAbstractions;
-using SupaCharge.Testing;
 
 namespace Nucs.UnitTests.App.Controllers.Js {
   [TestFixture]
-  public class JsControllerTest : BaseTestCase {
+  public class JsControllerTest : NucsBaseTestCase {
     [Test]
     public void TestExecute() {
       mFile.Setup(f => f.ReadAllText(@"c:\app\assets\scripts\nucs.js")).Returns("js");

@@ -4,11 +4,10 @@ using Nucs.Core.Model;
 using Nucs.Core.Serialization;
 using Nucs.Core.Storage;
 using SupaCharge.Core.IOAbstractions;
-using SupaCharge.Testing;
 
 namespace Nucs.UnitTests.Core.Storage {
   [TestFixture]
-  public class PlanStoreTest : BaseTestCase {
+  public class PlanStoreTest : NucsBaseTestCase {
     [Test]
     public void TestListWhenEmpty() {
       var files = BA<string>();

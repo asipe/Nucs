@@ -2,11 +2,10 @@
 using NUnit.Framework;
 using Nucs.App.Controllers.Index;
 using SupaCharge.Core.IOAbstractions;
-using SupaCharge.Testing;
 
 namespace Nucs.UnitTests.App.Controllers.Index {
   [TestFixture]
-  public class IndexControllerTest : BaseTestCase {
+  public class IndexControllerTest : NucsBaseTestCase {
     [Test]
     public void TestExecute() {
       mFile.Setup(f => f.ReadAllText(@"c:\app\assets\views\index\index.html")).Returns("html");

@@ -3,11 +3,10 @@ using System.Linq;
 using Autofac;
 using NUnit.Framework;
 using Nucs.App.Dependency;
-using SupaCharge.Testing;
 
 namespace Nucs.UnitTests.App.Dependency {
   [TestFixture]
-  public class DependencyResolverTest : BaseTestCase {
+  public class DependencyResolverTest : NucsBaseTestCase {
     private class StubDisposable : IDisposable {
       public bool Disposed{get;private set;}
 

@@ -1,10 +1,9 @@
 ﻿using NUnit.Framework;
 using Nucs.Core.Model.External;
-using SupaCharge.Testing;
 
 namespace Nucs.UnitTests.Core.Model.External {
   [TestFixture]
-  public class PlanDetailTest : BaseTestCase {
+  public class PlanDetailTest : NucsBaseTestCase {
     [Test]
     public void TestDefaults() {
       var detail = new PlanDetail();

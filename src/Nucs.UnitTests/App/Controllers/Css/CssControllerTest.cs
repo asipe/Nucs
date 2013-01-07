@@ -2,11 +2,10 @@ using Moq;
 using NUnit.Framework;
 using Nucs.App.Controllers.Css;
 using SupaCharge.Core.IOAbstractions;
-using SupaCharge.Testing;
 
 namespace Nucs.UnitTests.App.Controllers.Css {
   [TestFixture]
-  public class CssControllerTest : BaseTestCase {
+  public class CssControllerTest : NucsBaseTestCase {
     [Test]
     public void TestExecute() {
       mFile.Setup(f => f.ReadAllText(@"c:\app\assets\css\nucs.css")).Returns("css");

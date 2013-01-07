@@ -1,10 +1,9 @@
 ﻿using NUnit.Framework;
 using Nucs.Core.Model;
-using SupaCharge.Testing;
 
 namespace Nucs.UnitTests.Core.Model {
   [TestFixture]
-  public class PlanTest : BaseTestCase {
+  public class PlanTest : NucsBaseTestCase {
     [Test]
     public void TestDefaults() {
       var plan = new Plan();
