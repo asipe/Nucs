@@ -87,6 +87,7 @@
     <Compile Include="App\Dependency\DependencyResolverTest.cs" />
     <Compile Include="Core\Model\External\PlanDetailTest.cs" />
     <Compile Include="Core\Model\PlanTest.cs" />
+    <Compile Include="Core\Storage\PlanStoreTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SupaCharge.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,6 +42,8 @@
     </Compile>
     <Compile Include="Model\External\PlanDetail.cs" />
     <Compile Include="Model\Plan.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Storage\PlanStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

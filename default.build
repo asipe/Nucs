@@ -54,6 +54,9 @@
         <include name="Nucs.Core\**\*.cs"/>
         <include name="Properties\*.cs"/>
       </sources>
+      <references basedir="${debug.dir}">
+        <include name="SupaCharge.Core.dll"/>
+      </references>
     </csc>
   </target>
   
