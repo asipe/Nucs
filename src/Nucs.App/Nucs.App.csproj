@@ -97,9 +97,11 @@
     <Compile Include="Dependency\DependencyResolver.cs" />
     <Compile Include="Dependency\Modules\CssControllerModule.cs" />
     <Compile Include="Dependency\Modules\IndexControllerModule.cs" />
-    <Compile Include="Dependency\Modules\IOAbstractionsModule.cs" />
+    <Compile Include="Dependency\Modules\AbstractionsModule.cs" />
     <Compile Include="Dependency\Modules\JsControllerModule.cs" />
     <Compile Include="Dependency\Modules\ModuleConfiguration.cs" />
+    <Compile Include="Dependency\Modules\PlanControllerModule.cs" />
+    <Compile Include="Dependency\Modules\StoreModule.cs" />
     <Compile Include="Main\Runner.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

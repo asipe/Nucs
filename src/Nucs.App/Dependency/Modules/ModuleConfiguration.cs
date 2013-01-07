@@ -8,10 +8,12 @@ namespace Nucs.App.Dependency.Modules {
     }
 
     public void Initialize(ContainerBuilder builder) {
-      builder.RegisterModule(new IOAbstractionsModule());
+      builder.RegisterModule(new AbstractionsModule());
       builder.RegisterModule(new IndexControllerModule(mConfig));
       builder.RegisterModule(new CssControllerModule(mConfig));
       builder.RegisterModule(new JsControllerModule(mConfig));
+      builder.RegisterModule(new StoreModule(mConfig));
+      builder.RegisterModule(new PlanControllerModule());
     }
 
     private readonly IConfig mConfig;

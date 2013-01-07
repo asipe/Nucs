@@ -51,6 +51,7 @@
     <Compile Include="Model\Plan.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\Serializer.cs" />
+    <Compile Include="Storage\IPlanStore.cs" />
     <Compile Include="Storage\PlanStore.cs" />
   </ItemGroup>
   <ItemGroup>
