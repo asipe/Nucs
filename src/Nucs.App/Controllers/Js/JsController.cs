@@ -22,7 +22,7 @@ namespace Nucs.App.Controllers.Js {
       return mFile.ReadAllText(Path.Combine(mAssetDir, @"scripts\nucs.js"));
     }
 
-    private readonly IFile mFile;
     private readonly string mAssetDir;
+    private readonly IFile mFile;
   }
 }

@@ -22,7 +22,7 @@ namespace Nucs.App.Controllers.Index {
       return mFile.ReadAllText(Path.Combine(mAssetDir, @"views\index\index.html"));
     }
 
-    private readonly IFile mFile;
     private readonly string mAssetDir;
+    private readonly IFile mFile;
   }
 }

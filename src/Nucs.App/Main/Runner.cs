@@ -29,7 +29,7 @@ namespace Nucs.App.Main {
     }
 
     private static void ConfigureRoutes(HttpConfiguration httpConfig) {
-      httpConfig.Routes.MapHttpRoute("api default", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+      httpConfig.Routes.MapHttpRoute("api default", "api/{controller}/{id}", new {id = RouteParameter.Optional});
       httpConfig.Routes.MapHttpRoute("default", "index.html", new {controller = "Index"});
       httpConfig.Routes.MapHttpRoute("css", "css/nucs.css", new {controller = "Css"});
       httpConfig.Routes.MapHttpRoute("js", "scripts/nucs.js", new {controller = "Js"});

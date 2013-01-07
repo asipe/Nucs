@@ -2,26 +2,26 @@
 <html>
   <head>
     <title>Nucs</title>
-    <script  type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-    <script type="text/javascript" src="scripts/nucs.js"></script>    
+    <script  type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"> </script>
+    <script type="text/javascript" src="scripts/nucs.js"> </script>    
     <link rel="stylesheet" type="text/css" href="css/nucs.css" />
     
     <script type="text/javascript">
       function log(msg) {
         $('<p></p>').append(msg).prependTo($('#cmdresults'));
       }
-      
+
       function go() {
         var cmd = $('#cmdline').val();
         $.getJSON('api/plan/get')
-          .done(function (d) { log(JSON.stringify(d)); })
-          .fail(function (evt, err, msg) {log(err + ' - ' + msg);});
+          .done(function(d) { log(JSON.stringify(d)); })
+          .fail(function(evt, err, msg) { log(err + ' - ' + msg); });
       }
-      
+
       function init() {
         $('#cmdgo').click(go);
       }
-      
+
       $(window).load(init);
     </script>
   </head>

@@ -32,7 +32,7 @@ namespace Nucs.Core.Storage {
 
     private readonly IDirectory mDirectory;
     private readonly IFile mFile;
-    private readonly string mStorePath;
     private readonly ISerializer mSerializer;
+    private readonly string mStorePath;
   }
 }
