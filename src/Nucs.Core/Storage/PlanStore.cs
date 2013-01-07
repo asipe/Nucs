@@ -22,6 +22,14 @@ namespace Nucs.Core.Storage {
         .ToArray();
     }
 
+    public void Add(Plan plan) {
+      mFile.WriteAllText(Path.Combine(mStorePath, BuildPlanFileName(plan)), mSerializer.Serialize(plan));
+    }
+
+    private static string BuildPlanFileName(Plan plan) {
+      return string.Format("{0}.json", plan.ID);
+    }
+
     private readonly IDirectory mDirectory;
     private readonly IFile mFile;
     private readonly string mStorePath;

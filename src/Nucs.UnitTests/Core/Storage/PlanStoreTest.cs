@@ -36,9 +36,18 @@ namespace Nucs.UnitTests.Core.Storage {
       for (var x = 0; x < 3; x++) {
         var x1 = x;
         mFile.Setup(f => f.ReadAllText(_Path + files[x1])).Returns(jsons[x1]);
-        mSerializer.Setup(s => s.Deserialize<Plan>(jsons[x])).Returns(plans[x1]);
+        mSerializer.Setup(s => s.Deserialize<Plan>(jsons[x1])).Returns(plans[x1]);
       }
       Assert.That(mStore.List(), Is.EqualTo(plans));
+    }
+
+    [Test]
+    public void TestAddPlan() {
+      var plan = CA<Plan>();
+      var json = CA<string>();
+      mSerializer.Setup(s => s.Serialize(plan)).Returns(json);
+      mFile.Setup(f => f.WriteAllText(_Path + plan.ID + ".json", json));
+      mStore.Add(plan);
     }
 
     [SetUp]

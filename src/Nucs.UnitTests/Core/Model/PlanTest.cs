@@ -11,6 +11,7 @@ namespace Nucs.UnitTests.Core.Model {
       Assert.That(plan.Executable, Is.Null);
       Assert.That(plan.Assembly, Is.Null);
       Assert.That(plan.Run, Is.Null);
+      Assert.That(plan.ID, Is.Null);
     }
   }
 }
