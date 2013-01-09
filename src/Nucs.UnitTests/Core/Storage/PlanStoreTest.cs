@@ -53,7 +53,7 @@ namespace Nucs.UnitTests.Core.Storage {
     public void TestDeletePlan() {
       var plan = CA<Plan>();
       mFile.Setup(f => f.Delete(_Path + plan.ID + ".json"));
-      mStore.Delete(plan);
+      mStore.Delete(plan.ID);
     }
 
     [SetUp]

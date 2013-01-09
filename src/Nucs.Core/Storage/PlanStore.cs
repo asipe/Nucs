@@ -26,8 +26,8 @@ namespace Nucs.Core.Storage {
       mFile.WriteAllText(BuildPlanFilePath(plan), mSerializer.Serialize(plan));
     }
 
-    public void Delete(Plan plan) {
-      mFile.Delete(BuildPlanFilePath(plan));
+    public void Delete(string id) {
+      mFile.Delete(BuildPlanFilePath(BuildPlanFileName(id)));
     }
 
     private string BuildPlanFilePath(Plan plan) {
@@ -39,7 +39,11 @@ namespace Nucs.Core.Storage {
     }
 
     private static string BuildPlanFileName(Plan plan) {
-      return string.Format("{0}.json", plan.ID);
+      return BuildPlanFileName(plan.ID);
+    }
+
+    private static string BuildPlanFileName(string id) {
+      return string.Format("{0}.json", id);
     }
 
     private readonly IDirectory mDirectory;
