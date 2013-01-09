@@ -17,13 +17,25 @@ namespace Nucs.Core.Storage {
     public IEnumerable<Plan> List() {
       return mDirectory
         .GetFiles(mStorePath, "*.json")
-        .Select(path => mFile.ReadAllText(Path.Combine(mStorePath, path)))
+        .Select(path => mFile.ReadAllText(BuildPlanFilePath(path)))
         .Select(json => mSerializer.Deserialize<Plan>(json))
         .ToArray();
     }
 
     public void Add(Plan plan) {
-      mFile.WriteAllText(Path.Combine(mStorePath, BuildPlanFileName(plan)), mSerializer.Serialize(plan));
+      mFile.WriteAllText(BuildPlanFilePath(plan), mSerializer.Serialize(plan));
+    }
+
+    public void Delete(Plan plan) {
+      mFile.Delete(BuildPlanFilePath(plan));
+    }
+
+    private string BuildPlanFilePath(Plan plan) {
+      return BuildPlanFilePath(BuildPlanFileName(plan));
+    }
+
+    private string BuildPlanFilePath(string planFileName) {
+      return Path.Combine(mStorePath, planFileName);
     }
 
     private static string BuildPlanFileName(Plan plan) {

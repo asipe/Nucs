@@ -49,6 +49,13 @@ namespace Nucs.UnitTests.Core.Storage {
       mStore.Add(plan);
     }
 
+    [Test]
+    public void TestDeletePlan() {
+      var plan = CA<Plan>();
+      mFile.Setup(f => f.Delete(_Path + plan.ID + ".json"));
+      mStore.Delete(plan);
+    }
+
     [SetUp]
     public void DoSetup() {
       mFile = Mok<IFile>();
