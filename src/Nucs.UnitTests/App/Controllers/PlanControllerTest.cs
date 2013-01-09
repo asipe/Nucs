@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using System.Net;
+using System.Net.Http;
+using Moq;
 using NUnit.Framework;
 using Nucs.App.Controllers;
 using Nucs.Core.Model;
@@ -11,7 +13,7 @@ namespace Nucs.UnitTests.App.Controllers {
     [Test]
     public void TestGetAllEmptyGivesEmtpy() {
       mStore.Setup(s => s.List()).Returns(BA<Plan>());
-      Assert.That(mController.GetAll(), Is.Empty);
+      Assert.That(mController.GetPlans(), Is.Empty);
     }
 
     [Test]
@@ -23,7 +25,7 @@ namespace Nucs.UnitTests.App.Controllers {
                                          Executable = plans[0].Executable,
                                          Run = plans[0].Run
                                        });
-      Compare(mController.GetAll(), expected);
+      Compare(mController.GetPlans(), expected);
     }
 
     [Test]
@@ -45,7 +47,20 @@ namespace Nucs.UnitTests.App.Controllers {
                                          Executable = plans[2].Executable,
                                          Run = plans[2].Run
                                        });
-      Compare(mController.GetAll(), expected);
+      Compare(mController.GetPlans(), expected);
+    }
+
+    [Test]
+    public void TestDelete() {
+      var id = CA<string>();
+      mStore.Setup(s => s.Delete(id));
+      Compare(new HttpResponseMessage {StatusCode = HttpStatusCode.Accepted}, mController.DeletePlan(id));
+    }
+
+    [Test]
+    public void TestAdd() {
+      var detail = CA<PlanDetail>();
+      Compare(new HttpResponseMessage {StatusCode = HttpStatusCode.Created}, mController.CreatePlan(detail));
     }
 
     [SetUp]

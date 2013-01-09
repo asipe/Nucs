@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using Nucs.Core.Model;
 using Nucs.Core.Model.External;
@@ -11,11 +13,20 @@ namespace Nucs.App.Controllers {
       mStore = store;
     }
 
-    public IEnumerable<PlanDetail> GetAll() {
+    public IEnumerable<PlanDetail> GetPlans() {
       return mStore
         .List()
         .Select(BuildPlanDetail)
         .ToArray();
+    }
+
+    public HttpResponseMessage DeletePlan(string id) {
+      mStore.Delete(id);
+      return new HttpResponseMessage {StatusCode = HttpStatusCode.Accepted};
+    }
+
+    public HttpResponseMessage CreatePlan(PlanDetail detail) {
+      return new HttpResponseMessage {StatusCode = HttpStatusCode.Created};
     }
 
     private static PlanDetail BuildPlanDetail(Plan plan) {
