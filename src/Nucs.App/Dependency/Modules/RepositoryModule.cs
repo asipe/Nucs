@@ -3,8 +3,8 @@ using MadCat.Core;
 using Nucs.Core.Storage;
 
 namespace Nucs.App.Dependency.Modules {
-  public class StoreModule : Module {
-    public StoreModule(IConfig config) {
+  public class RepositoryModule : Module {
+    public RepositoryModule(IConfig config) {
       mConfig = config;
     }
 

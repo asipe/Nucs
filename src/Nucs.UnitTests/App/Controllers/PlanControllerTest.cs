@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Controllers;
@@ -15,7 +16,7 @@ namespace Nucs.UnitTests.App.Controllers {
   [TestFixture]
   public class PlanControllerTest : NucsBaseTestCase {
     [Test]
-    public void TestGetAllPlansEmptyGivesEmtpy() {
+    public void TestGetAllPlansWithNoPlansGivesEmtpy() {
       mRepo.Setup(r => r.List()).Returns(BA<Plan>());
       Assert.That(mController.GetAllPlans(), Is.Empty);
     }
@@ -28,11 +29,18 @@ namespace Nucs.UnitTests.App.Controllers {
     }
 
     [Test]
-    public void TestGetSinglePlanByID() {
+    public void TestGetSinglePlanByIDExists() {
       var plans = CM<Plan>();
       mRepo.Setup(r => r.List()).Returns(plans);
       Compare(mController.GetPlan(plans[0].ID), plans[0]);
       Compare(mController.GetPlan(plans[2].ID), plans[2]);
+    }
+
+    [Test]
+    public void TestGetSinglePlanByIDWhichDoesNotExistThrows() {
+      var plans = CM<Plan>();
+      mRepo.Setup(r => r.List()).Returns(plans);
+      Assert.Throws<InvalidOperationException>(() => mController.GetPlan(CA<string>()));
     }
 
     [Test]
@@ -46,19 +54,20 @@ namespace Nucs.UnitTests.App.Controllers {
       var plan = CA<Plan>();
       var config = new HttpConfiguration();
       using (var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/plans")) {
-        var routeData = new HttpRouteData(config.Routes.MapHttpRoute("defaultapi", "api/{controller}/{id}"), new HttpRouteValueDictionary { { "controller", "plans" } });
+        var routeData = new HttpRouteData(config.Routes.MapHttpRoute("defaultapi", "api/{controller}/{id}"), new HttpRouteValueDictionary {{"controller", "plans"}});
         mController.ControllerContext = new HttpControllerContext(config, routeData, request);
         mController.Request = request;
         mController.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
         mController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
 
-        using (var actual = mController.PostPlan(plan)) {
-          Assert.That(actual.StatusCode, Is.EqualTo(HttpStatusCode.Created));
-          Assert.That(actual.Headers.Location.AbsoluteUri, Is.EqualTo("http://localhost/api/plans/abc"));
-          var result = actual.Content.ReadAsStringAsync();
+        mRepo.Setup(r => r.Add(plan));
+        using (var response = mController.PostPlan(plan)) {
+          Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
+          Assert.That(response.Headers.Location.AbsoluteUri, Is.EqualTo("http://localhost/api/plans/" + plan.ID));
+          var result = response.Content.ReadAsStringAsync();
           result.Wait();
-          var actualObj = JsonConvert.DeserializeObject<Plan>(result.Result);
-          Compare(actualObj, new Plan());
+          var actual = JsonConvert.DeserializeObject<Plan>(result.Result);
+          Compare(actual, plan);
         }
       }
     }
@@ -66,8 +75,7 @@ namespace Nucs.UnitTests.App.Controllers {
     [Test]
     public void TestPutPlan() {
       var plan = CA<Plan>();
-      mRepo.Setup(r => r.Delete(plan.ID));
-      mRepo.Setup(r => r.Add(plan));
+      mRepo.Setup(r => r.Update(plan));
       mController.PutPlan(plan);
     }
 

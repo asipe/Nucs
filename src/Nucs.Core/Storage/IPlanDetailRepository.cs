@@ -6,5 +6,6 @@ namespace Nucs.Core.Storage {
     IEnumerable<Plan> List();
     void Add(Plan plan);
     void Delete(string id);
+    void Update(Plan plan);
   }
 }

@@ -1,6 +1,7 @@
 using Autofac;
 using Nucs.Core.Serialization;
 using SupaCharge.Core.IOAbstractions;
+using SupaCharge.Core.OID;
 
 namespace Nucs.App.Dependency.Modules {
   public class AbstractionsModule : Module {
@@ -21,6 +22,11 @@ namespace Nucs.App.Dependency.Modules {
         .RegisterType<Serializer>()
         .SingleInstance()
         .As<ISerializer>();
+
+      builder
+        .RegisterType<GuidOIDProvider>()
+        .SingleInstance()
+        .As<IOIDProvider>();
     }
   }
 }

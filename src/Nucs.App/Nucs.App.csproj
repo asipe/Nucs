@@ -102,7 +102,7 @@
     <Compile Include="Dependency\Modules\JsControllerModule.cs" />
     <Compile Include="Dependency\Modules\ModuleConfiguration.cs" />
     <Compile Include="Dependency\Modules\PlanControllerModule.cs" />
-    <Compile Include="Dependency\Modules\StoreModule.cs" />
+    <Compile Include="Dependency\Modules\RepositoryModule.cs" />
     <Compile Include="Main\Runner.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,6 +4,7 @@ using Nucs.Core.Model.External;
 using Nucs.Core.Serialization;
 using Nucs.Core.Storage;
 using SupaCharge.Core.IOAbstractions;
+using SupaCharge.Core.OID;
 
 namespace Nucs.UnitTests.Core.Storage {
   [TestFixture]
@@ -44,9 +45,11 @@ namespace Nucs.UnitTests.Core.Storage {
     public void TestAddPlan() {
       var plan = CA<Plan>();
       var json = CA<string>();
+      mOIDProvider.Setup(p => p.GetID()).Returns("ABC");
       mSerializer.Setup(s => s.Serialize(plan)).Returns(json);
-      mFile.Setup(f => f.WriteAllText(_Path + plan.ID + ".json", json));
+      mFile.Setup(f => f.WriteAllText(@"c:\data\ABC.json", json));
       mRepo.Add(plan);
+      Assert.That(plan.ID, Is.EqualTo("ABC"));
     }
 
     [Test]
@@ -54,6 +57,16 @@ namespace Nucs.UnitTests.Core.Storage {
       var plan = CA<Plan>();
       mFile.Setup(f => f.Delete(_Path + plan.ID + ".json"));
       mRepo.Delete(plan.ID);
+    } 
+    
+    [Test]
+    public void TestUpdatePlan() {
+      var plan = CA<Plan>();
+      var json = CA<string>();
+      plan.ID = "ABC";
+      mSerializer.Setup(s => s.Serialize(plan)).Returns(json);
+      mFile.Setup(f => f.WriteAllText(@"c:\data\ABC.json", json));
+      mRepo.Update(plan);
     }
 
     [SetUp]
@@ -61,7 +74,8 @@ namespace Nucs.UnitTests.Core.Storage {
       mFile = Mok<IFile>();
       mDirectory = Mok<IDirectory>();
       mSerializer = Mok<ISerializer>();
-      mRepo = new PlanDetailRepository(_Path, mFile.Object, mDirectory.Object, mSerializer.Object);
+      mOIDProvider = Mok<IOIDProvider>();
+      mRepo = new PlanDetailRepository(_Path, mFile.Object, mDirectory.Object, mSerializer.Object, mOIDProvider.Object);
     }
 
     private const string _Path = @"c:\data\";
@@ -69,5 +83,6 @@ namespace Nucs.UnitTests.Core.Storage {
     private Mock<ISerializer> mSerializer;
     private PlanDetailRepository mRepo;
     private Mock<IDirectory> mDirectory;
+    private Mock<IOIDProvider> mOIDProvider;
   }
 }

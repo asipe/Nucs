@@ -24,14 +24,14 @@ namespace Nucs.App.Controllers {
     }
 
     public HttpResponseMessage PostPlan(Plan plan) {
-      var response = Request.CreateResponse(HttpStatusCode.Created, new Plan());
-      response.Headers.Location = new Uri(Url.Link("defaultapi", new { id = "abc" }));
+      mRepo.Add(plan);
+      var response = Request.CreateResponse(HttpStatusCode.Created, plan);
+      response.Headers.Location = new Uri(Url.Link("defaultapi", new { id = plan.ID }));
       return response;
     }
 
     public void PutPlan(Plan plan) {
-      mRepo.Delete(plan.ID);
-      mRepo.Add(plan);
+      mRepo.Update(plan);
     }
 
     public void DeletePlan(string id) {

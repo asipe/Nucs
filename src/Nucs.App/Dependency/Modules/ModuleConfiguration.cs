@@ -12,7 +12,7 @@ namespace Nucs.App.Dependency.Modules {
       builder.RegisterModule(new IndexControllerModule(mConfig));
       builder.RegisterModule(new CssControllerModule(mConfig));
       builder.RegisterModule(new JsControllerModule(mConfig));
-      builder.RegisterModule(new StoreModule(mConfig));
+      builder.RegisterModule(new RepositoryModule(mConfig));
       builder.RegisterModule(new PlanControllerModule());
     }
 

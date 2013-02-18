@@ -4,14 +4,20 @@ using System.Linq;
 using Nucs.Core.Model.External;
 using Nucs.Core.Serialization;
 using SupaCharge.Core.IOAbstractions;
+using SupaCharge.Core.OID;
 
 namespace Nucs.Core.Storage {
   public class PlanDetailRepository : IPlanDetailRepository {
-    public PlanDetailRepository(string storePath, IFile file, IDirectory directory, ISerializer serializer) {
+    public PlanDetailRepository(string storePath,
+                                IFile file,
+                                IDirectory directory,
+                                ISerializer serializer,
+                                IOIDProvider oidProvider) {
       mStorePath = storePath;
       mFile = file;
       mDirectory = directory;
       mSerializer = serializer;
+      mOIDProvider = oidProvider;
     }
 
     public IEnumerable<Plan> List() {
@@ -23,11 +29,16 @@ namespace Nucs.Core.Storage {
     }
 
     public void Add(Plan plan) {
+      plan.ID = mOIDProvider.GetID();
       mFile.WriteAllText(BuildPlanFilePath(plan), mSerializer.Serialize(plan));
     }
 
     public void Delete(string id) {
       mFile.Delete(BuildPlanFilePath(BuildPlanFileName(id)));
+    }
+
+    public void Update(Plan plan) {
+      mFile.WriteAllText(BuildPlanFilePath(plan), mSerializer.Serialize(plan));
     }
 
     private string BuildPlanFilePath(Plan plan) {
@@ -48,6 +59,7 @@ namespace Nucs.Core.Storage {
 
     private readonly IDirectory mDirectory;
     private readonly IFile mFile;
+    private readonly IOIDProvider mOIDProvider;
     private readonly ISerializer mSerializer;
     private readonly string mStorePath;
   }
