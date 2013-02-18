@@ -6,7 +6,7 @@ namespace Nucs.App.Dependency.Modules {
     protected override void Load(ContainerBuilder builder) {
       base.Load(builder);
       builder
-        .RegisterType<PlansController>()
+        .RegisterType<PlanController>()
         .InstancePerLifetimeScope();
     }
   }

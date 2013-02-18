@@ -8,8 +8,8 @@ using Nucs.Core.Model.External;
 using Nucs.Core.Storage;
 
 namespace Nucs.App.Controllers {
-  public class PlansController : ApiController {
-    public PlansController(IPlanDetailRepository repo) {
+  public class PlanController : ApiController {
+    public PlanController(IPlanDetailRepository repo) {
       mRepo = repo;
     }
 

@@ -82,10 +82,10 @@ namespace Nucs.UnitTests.App.Controllers {
     [SetUp]
     public void DoSetup() {
       mRepo = Mok<IPlanDetailRepository>();
-      mController = new PlansController(mRepo.Object);
+      mController = new PlanController(mRepo.Object);
     }
 
-    private PlansController mController;
+    private PlanController mController;
     private Mock<IPlanDetailRepository> mRepo;
   }
 }
