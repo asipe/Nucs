@@ -65,6 +65,7 @@
       <HintPath>..\..\vsdebug\System.Net.Http.WebRequest.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vsdebug\System.Web.Http.dll</HintPath>

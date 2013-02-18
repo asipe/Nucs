@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ServiceModel;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
 using Autofac;
@@ -17,7 +18,7 @@ namespace Nucs.App.Main {
     }
 
     private static void DoStart(IConfig appConfig) {
-      var httpConfig = new HttpSelfHostConfiguration("http://localhost:49991");
+      var httpConfig = new HttpSelfHostConfiguration("http://localhost:49991") {HostNameComparisonMode = HostNameComparisonMode.Exact};
       ConfigureRoutes(httpConfig);
       ConfigureDependencyResolver(httpConfig, appConfig);
       using (var server = new HttpSelfHostServer(httpConfig)) {
