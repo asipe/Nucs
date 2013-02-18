@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Nucs.Core.Model;
+using Nucs.Core.Model.External;
 using Nucs.Core.Serialization;
 using SupaCharge.Core.IOAbstractions;
 
 namespace Nucs.Core.Storage {
-  public class PlanStore : IPlanStore {
-    public PlanStore(string storePath, IFile file, IDirectory directory, ISerializer serializer) {
+  public class PlanDetailRepository : IPlanDetailRepository {
+    public PlanDetailRepository(string storePath, IFile file, IDirectory directory, ISerializer serializer) {
       mStorePath = storePath;
       mFile = file;
       mDirectory = directory;

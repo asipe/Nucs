@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using Nucs.Core.Model;
+using NUnit.Framework;
+using Nucs.Core.Model.External;
 
-namespace Nucs.UnitTests.Core.Model {
+namespace Nucs.UnitTests.Core.Model.External {
   [TestFixture]
   public class PlanTest : NucsBaseTestCase {
     [Test]

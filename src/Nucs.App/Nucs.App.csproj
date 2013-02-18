@@ -59,6 +59,7 @@
       <HintPath>..\..\vsdebug\System.Net.Http.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vsdebug\System.Net.Http.WebRequest.dll</HintPath>
@@ -93,7 +94,7 @@
     <Compile Include="Controllers\Css\CssController.cs" />
     <Compile Include="Controllers\Index\IndexController.cs" />
     <Compile Include="Controllers\Js\JsController.cs" />
-    <Compile Include="Controllers\PlanController.cs" />
+    <Compile Include="Controllers\PlansController.cs" />
     <Compile Include="Dependency\DependencyResolver.cs" />
     <Compile Include="Dependency\Modules\CssControllerModule.cs" />
     <Compile Include="Dependency\Modules\IndexControllerModule.cs" />

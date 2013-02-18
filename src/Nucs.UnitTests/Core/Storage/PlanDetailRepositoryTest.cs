@@ -1,18 +1,18 @@
 ﻿using Moq;
 using NUnit.Framework;
-using Nucs.Core.Model;
+using Nucs.Core.Model.External;
 using Nucs.Core.Serialization;
 using Nucs.Core.Storage;
 using SupaCharge.Core.IOAbstractions;
 
 namespace Nucs.UnitTests.Core.Storage {
   [TestFixture]
-  public class PlanStoreTest : NucsBaseTestCase {
+  public class PlanDetailRepositoryTest : NucsBaseTestCase {
     [Test]
     public void TestListWhenEmpty() {
       var files = BA<string>();
       mDirectory.Setup(d => d.GetFiles(_Path, "*.json")).Returns(files);
-      Assert.That(mStore.List(), Is.Empty);
+      Assert.That(mRepo.List(), Is.Empty);
     }
 
     [Test]
@@ -23,7 +23,7 @@ namespace Nucs.UnitTests.Core.Storage {
       mDirectory.Setup(d => d.GetFiles(_Path, "*.json")).Returns(files);
       mFile.Setup(f => f.ReadAllText(_Path + files[0])).Returns(jsons[0]);
       mSerializer.Setup(s => s.Deserialize<Plan>(jsons[0])).Returns(plans[0]);
-      Assert.That(mStore.List(), Is.EqualTo(plans));
+      Assert.That(mRepo.List(), Is.EqualTo(plans));
     }
 
     [Test]
@@ -37,7 +37,7 @@ namespace Nucs.UnitTests.Core.Storage {
         mFile.Setup(f => f.ReadAllText(_Path + files[x1])).Returns(jsons[x1]);
         mSerializer.Setup(s => s.Deserialize<Plan>(jsons[x1])).Returns(plans[x1]);
       }
-      Assert.That(mStore.List(), Is.EqualTo(plans));
+      Assert.That(mRepo.List(), Is.EqualTo(plans));
     }
 
     [Test]
@@ -46,14 +46,14 @@ namespace Nucs.UnitTests.Core.Storage {
       var json = CA<string>();
       mSerializer.Setup(s => s.Serialize(plan)).Returns(json);
       mFile.Setup(f => f.WriteAllText(_Path + plan.ID + ".json", json));
-      mStore.Add(plan);
+      mRepo.Add(plan);
     }
 
     [Test]
     public void TestDeletePlan() {
       var plan = CA<Plan>();
       mFile.Setup(f => f.Delete(_Path + plan.ID + ".json"));
-      mStore.Delete(plan.ID);
+      mRepo.Delete(plan.ID);
     }
 
     [SetUp]
@@ -61,13 +61,13 @@ namespace Nucs.UnitTests.Core.Storage {
       mFile = Mok<IFile>();
       mDirectory = Mok<IDirectory>();
       mSerializer = Mok<ISerializer>();
-      mStore = new PlanStore(_Path, mFile.Object, mDirectory.Object, mSerializer.Object);
+      mRepo = new PlanDetailRepository(_Path, mFile.Object, mDirectory.Object, mSerializer.Object);
     }
 
     private const string _Path = @"c:\data\";
     private Mock<IFile> mFile;
     private Mock<ISerializer> mSerializer;
-    private PlanStore mStore;
+    private PlanDetailRepository mRepo;
     private Mock<IDirectory> mDirectory;
   }
 }

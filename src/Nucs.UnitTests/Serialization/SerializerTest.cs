@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Nucs.Core.Model;
+using Nucs.Core.Model.External;
 using Nucs.Core.Serialization;
 
 namespace Nucs.UnitTests.Serialization {

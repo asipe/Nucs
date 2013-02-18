@@ -46,6 +46,10 @@
       <HintPath>..\..\vsdebug\Moq.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Nucs.App, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vsdebug\Nucs.App.dll</HintPath>
@@ -90,9 +94,8 @@
     <Compile Include="App\Controllers\Js\JsControllerTest.cs" />
     <Compile Include="App\Controllers\PlanControllerTest.cs" />
     <Compile Include="App\Dependency\DependencyResolverTest.cs" />
-    <Compile Include="Core\Model\External\PlanDetailTest.cs" />
-    <Compile Include="Core\Model\PlanTest.cs" />
-    <Compile Include="Core\Storage\PlanStoreTest.cs" />
+    <Compile Include="Core\Model\External\PlanTest.cs" />
+    <Compile Include="Core\Storage\PlanDetailRepositoryTest.cs" />
     <Compile Include="NucsBaseTestCase.cs" />
     <Compile Include="Serialization\SerializerTest.cs" />
   </ItemGroup>

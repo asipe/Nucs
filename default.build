@@ -73,6 +73,7 @@
         <include name="System.Net.Http.WebRequest.dll"/>
         <include name="System.Web.Http.dll"/>
         <include name="System.Web.Http.SelfHost.dll"/>
+        <include name="System.Net.Http.Formatting.dll"/>
         <include name="SupaCharge.Core.dll"/>
         <include name="Nucs.Core.dll"/>
         <include name="MadCat.Core.dll"/>
@@ -151,6 +152,7 @@
         <include name="Nucs.App.dll"/>
         <include name="MadCat.Core.dll"/>
         <include name="KellermanSoftware.Compare-NET-Objects.dll"/>
+        <include name="Newtonsoft.Json.dll"/>
       </references>
     </csc>
   </target>

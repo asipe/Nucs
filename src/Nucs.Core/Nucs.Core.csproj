@@ -47,12 +47,11 @@
     <Compile Include="..\Properties\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Model\External\PlanDetail.cs" />
-    <Compile Include="Model\Plan.cs" />
+    <Compile Include="Model\External\Plan.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\Serializer.cs" />
-    <Compile Include="Storage\IPlanStore.cs" />
-    <Compile Include="Storage\PlanStore.cs" />
+    <Compile Include="Storage\IPlanDetailRepository.cs" />
+    <Compile Include="Storage\PlanDetailRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

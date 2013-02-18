@@ -11,9 +11,9 @@ namespace Nucs.App.Dependency.Modules {
     protected override void Load(ContainerBuilder builder) {
       base.Load(builder);
       builder
-        .RegisterType<PlanStore>()
+        .RegisterType<PlanDetailRepository>()
         .InstancePerLifetimeScope()
-        .As<IPlanStore>()
+        .As<IPlanDetailRepository>()
         .WithParameter("storePath", mConfig.Get<string>("nucs-config-dir"));
     }
 
