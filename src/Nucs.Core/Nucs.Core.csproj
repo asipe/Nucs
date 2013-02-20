@@ -48,6 +48,7 @@
       <Link>AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Model\External\Plan.cs" />
+    <Compile Include="Model\Internal\PlanSpec.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\Serializer.cs" />
     <Compile Include="Storage\IPlanDetailRepository.cs" />

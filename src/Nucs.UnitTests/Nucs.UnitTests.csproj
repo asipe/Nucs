@@ -95,6 +95,7 @@
     <Compile Include="App\Controllers\PlanControllerTest.cs" />
     <Compile Include="App\Dependency\DependencyResolverTest.cs" />
     <Compile Include="Core\Model\External\PlanTest.cs" />
+    <Compile Include="Core\Model\Internal\PlanSpecTest.cs" />
     <Compile Include="Core\Storage\PlanDetailRepositoryTest.cs" />
     <Compile Include="NucsBaseTestCase.cs" />
     <Compile Include="Serialization\SerializerTest.cs" />
