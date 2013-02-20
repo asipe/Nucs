@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Nucs.Core.Model.External;
+using Nucs.Core.Model.Internal;
 using Nucs.Core.Serialization;
 using SupaCharge.Core.IOAbstractions;
 using SupaCharge.Core.OID;
 
 namespace Nucs.Core.Storage {
-  public class PlanDetailRepository : IPlanDetailRepository {
-    public PlanDetailRepository(string storePath,
-                                IFile file,
-                                IDirectory directory,
-                                ISerializer serializer,
-                                IOIDProvider oidProvider) {
+  public class PlanSpecRepository : IPlanSpecRepository {
+    public PlanSpecRepository(string storePath,
+                              IFile file,
+                              IDirectory directory,
+                              ISerializer serializer,
+                              IOIDProvider oidProvider) {
       mStorePath = storePath;
       mFile = file;
       mDirectory = directory;
@@ -20,15 +20,15 @@ namespace Nucs.Core.Storage {
       mOIDProvider = oidProvider;
     }
 
-    public IEnumerable<Plan> List() {
+    public IEnumerable<PlanSpec> List() {
       return mDirectory
         .GetFiles(mStorePath, "*.json")
         .Select(path => mFile.ReadAllText(BuildPlanFilePath(path)))
-        .Select(json => mSerializer.Deserialize<Plan>(json))
+        .Select(json => mSerializer.Deserialize<PlanSpec>(json))
         .ToArray();
     }
 
-    public void Add(Plan plan) {
+    public void Add(PlanSpec plan) {
       plan.ID = mOIDProvider.GetID();
       mFile.WriteAllText(BuildPlanFilePath(plan), mSerializer.Serialize(plan));
     }
@@ -37,11 +37,11 @@ namespace Nucs.Core.Storage {
       mFile.Delete(BuildPlanFilePath(BuildPlanFileName(id)));
     }
 
-    public void Update(Plan plan) {
+    public void Update(PlanSpec plan) {
       mFile.WriteAllText(BuildPlanFilePath(plan), mSerializer.Serialize(plan));
     }
 
-    private string BuildPlanFilePath(Plan plan) {
+    private string BuildPlanFilePath(PlanSpec plan) {
       return BuildPlanFilePath(BuildPlanFileName(plan));
     }
 
@@ -49,7 +49,7 @@ namespace Nucs.Core.Storage {
       return Path.Combine(mStorePath, planFileName);
     }
 
-    private static string BuildPlanFileName(Plan plan) {
+    private static string BuildPlanFileName(PlanSpec plan) {
       return BuildPlanFileName(plan.ID);
     }
 
