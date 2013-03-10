@@ -3,10 +3,10 @@ using Nucs.Core.Model.External;
 
 namespace Nucs.UnitTests.Core.Model.External {
   [TestFixture]
-  public class PlanTest : NucsBaseTestCase {
+  public class PlanDtoTest : NucsBaseTestCase {
     [Test]
     public void TestDefaults() {
-      var plan = new Plan();
+      var plan = new PlanDto();
       Assert.That(plan.Executable, Is.Null);
       Assert.That(plan.Assembly, Is.Null);
       Assert.That(plan.Run, Is.Null);

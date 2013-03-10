@@ -16,28 +16,28 @@ namespace Nucs.App.Controllers {
       mMapper = mapper;
     }
 
-    public IEnumerable<Plan> GetAllPlans() {
+    public IEnumerable<PlanDto> GetAllPlans() {
       return mMapper
-        .Map<Plan[]>(mRepo.List());
+        .Map<PlanDto[]>(mRepo.List());
     }
 
-    public Plan GetPlan(string id) {
+    public PlanDto GetPlan(string id) {
       return mMapper
-        .Map<Plan>(mRepo.List()
+        .Map<PlanDto>(mRepo.List()
                         .First(plan => plan.ID == id));
     }
 
-    public HttpResponseMessage PostPlan(Plan plan) {
+    public HttpResponseMessage PostPlan(PlanDto plan) {
       var spec = mMapper.Map<PlanSpec>(plan);
       mRepo.Add(spec);
-      plan = mMapper.Map<Plan>(spec);
+      plan = mMapper.Map<PlanDto>(spec);
 
       var response = Request.CreateResponse(HttpStatusCode.Created, plan);
       response.Headers.Location = new Uri(Url.Link("defaultapi", new {id = plan.ID}));
       return response;
     }
 
-    public void PutPlan(Plan plan) {
+    public void PutPlan(PlanDto plan) {
       mRepo.Update(mMapper.Map<PlanSpec>(plan));
     }
 

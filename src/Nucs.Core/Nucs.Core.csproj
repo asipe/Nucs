@@ -55,7 +55,7 @@
     <Compile Include="Mapping\IObjectMapper.cs" />
     <Compile Include="Mapping\MapperConfiguration.cs" />
     <Compile Include="Mapping\ObjectMapper.cs" />
-    <Compile Include="Model\External\Plan.cs" />
+    <Compile Include="Model\External\PlanDto.cs" />
     <Compile Include="Model\Internal\PlanSpec.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\Serializer.cs" />

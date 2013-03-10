@@ -8,9 +8,9 @@ namespace Nucs.UnitTests.Serialization {
     [Test]
     public void TestBasicSerialization() {
       var serializer = new Serializer();
-      var expected = CA<Plan>();
+      var expected = CA<PlanDto>();
       var json = serializer.Serialize(expected);
-      Compare(serializer.Deserialize<Plan>(json), expected);
+      Compare(serializer.Deserialize<PlanDto>(json), expected);
     }
   }
 }

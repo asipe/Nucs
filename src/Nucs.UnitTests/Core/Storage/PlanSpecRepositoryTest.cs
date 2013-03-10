@@ -55,7 +55,7 @@ namespace Nucs.UnitTests.Core.Storage {
 
     [Test]
     public void TestDeletePlan() {
-      var plan = CA<Plan>();
+      var plan = CA<PlanDto>();
       mFile.Setup(f => f.Delete(_Path + plan.ID + ".json"));
       mRepo.Delete(plan.ID);
     }

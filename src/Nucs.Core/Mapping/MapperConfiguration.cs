@@ -5,8 +5,8 @@ using Nucs.Core.Model.Internal;
 namespace Nucs.Core.Mapping {
   public class MapperConfiguration {
     public void Configure() {
-      Mapper.CreateMap<PlanSpec, Plan>();
-      Mapper.CreateMap<Plan, PlanSpec>();
+      Mapper.CreateMap<PlanSpec, PlanDto>();
+      Mapper.CreateMap<PlanDto, PlanSpec>();
     }
   }
 }

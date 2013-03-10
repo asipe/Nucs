@@ -1,5 +1,5 @@
 namespace Nucs.Core.Model.External {
-  public class Plan {
+  public class PlanDto {
     public string ID{get;set;}
     public string Executable{get;set;}
     public string Assembly{get;set;}
