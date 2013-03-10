@@ -20,31 +20,35 @@ namespace Nucs.UnitTests.App.Controllers {
   public class PlanControllerTest : NucsBaseTestCase {
     [Test]
     public void TestGetAllPlansWithNoPlansGivesEmtpy() {
-      mRepo.Setup(r => r.List()).Returns(BA<PlanSpec>());
+      var specs = BA<PlanSpec>();
+      mRepo.Setup(r => r.List()).Returns(specs);
+      mMapper.Setup(m => m.Map<Plan[]>(specs)).Returns(BA<Plan>());
       Assert.That(mController.GetAllPlans(), Is.Empty);
     }
 
     [Test]
     public void TetGetAllPlansWithPlans() {
       var plans = CM<Plan>();
-      var specs = PlanMapper.ToSpec(plans).ToArray();
+      var specs = CM<PlanSpec>();
       mRepo.Setup(r => r.List()).Returns(specs);
+      mMapper.Setup(m => m.Map<Plan[]>(specs)).Returns(plans);
       Compare(mController.GetAllPlans().ToArray(), plans);
     }
 
     [Test]
     public void TestGetSinglePlanByIDExists() {
       var plans = CM<Plan>();
-      var specs = PlanMapper.ToSpec(plans).ToArray();
+      var specs = CM<PlanSpec>();
       mRepo.Setup(r => r.List()).Returns(specs);
-      Compare(mController.GetPlan(plans[0].ID), plans[0]);
-      Compare(mController.GetPlan(plans[2].ID), plans[2]);
+      mMapper.Setup(m => m.Map<Plan>(specs[0])).Returns(plans[0]);
+      Compare(mController.GetPlan(specs[0].ID), plans[0]);
+      mMapper.Setup(m => m.Map<Plan>(specs[2])).Returns(plans[2]);
+      Compare(mController.GetPlan(specs[2].ID), plans[2]);
     }
 
     [Test]
     public void TestGetSinglePlanByIDWhichDoesNotExistThrows() {
-      var plans = CM<Plan>();
-      var specs = PlanMapper.ToSpec(plans).ToArray();
+      var specs = CM<PlanSpec>();
       mRepo.Setup(r => r.List()).Returns(specs);
       Assert.Throws<InvalidOperationException>(() => mController.GetPlan(CA<string>()));
     }
@@ -58,16 +62,18 @@ namespace Nucs.UnitTests.App.Controllers {
     [Test]
     public void TestCreatePlan() {
       var plan = CA<Plan>();
-      var spec = PlanMapper.ToSpec(plan);
+      var spec = CA<PlanSpec>();
       var config = new HttpConfiguration();
       using (var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/plans")) {
-        var routeData = new HttpRouteData(config.Routes.MapHttpRoute("defaultapi", "api/{controller}/{id}"), new HttpRouteValueDictionary {{"controller", "plans"}});
+        var routeData = new HttpRouteData(config.Routes.MapHttpRoute("defaultapi", "api/{controller}/{id}"), new HttpRouteValueDictionary { { "controller", "plans" } });
         mController.ControllerContext = new HttpControllerContext(config, routeData, request);
         mController.Request = request;
         mController.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
         mController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
 
+        mMapper.Setup(m => m.Map<PlanSpec>(plan)).Returns(spec);
         mRepo.Setup(r => r.Add(It.Is<PlanSpec>(s => IsEqual(s, spec))));
+        mMapper.Setup(m => m.Map<Plan>(spec)).Returns(plan);
         using (var response = mController.PostPlan(plan)) {
           Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
           Assert.That(response.Headers.Location.AbsoluteUri, Is.EqualTo("http://localhost/api/plans/" + plan.ID));
@@ -82,18 +88,21 @@ namespace Nucs.UnitTests.App.Controllers {
     [Test]
     public void TestPutPlan() {
       var plan = CA<Plan>();
-      var spec = PlanMapper.ToSpec(plan);
-      mRepo.Setup(r => r.Update(It.Is<PlanSpec>(s => IsEqual(s, spec))));
+      var spec = CA<PlanSpec>();
+      mMapper.Setup(m => m.Map<PlanSpec>(plan)).Returns(spec);
+      mRepo.Setup(r => r.Update(spec));
       mController.PutPlan(plan);
     }
 
     [SetUp]
     public void DoSetup() {
+      mMapper = Mok<IObjectMapper>();
       mRepo = Mok<IPlanSpecRepository>();
-      mController = new PlanController(mRepo.Object);
+      mController = new PlanController(mRepo.Object, mMapper.Object);
     }
 
     private PlanController mController;
     private Mock<IPlanSpecRepository> mRepo;
+    private Mock<IObjectMapper> mMapper;
   }
 }

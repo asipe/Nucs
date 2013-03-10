@@ -57,6 +57,7 @@
       <references basedir="${debug.dir}">
         <include name="SupaCharge.Core.dll"/>
         <include name="Newtonsoft.Json.dll"/>
+        <include name="AutoMapper.dll"/>
       </references>
     </csc>
   </target>
@@ -153,6 +154,7 @@
         <include name="MadCat.Core.dll"/>
         <include name="KellermanSoftware.Compare-NET-Objects.dll"/>
         <include name="Newtonsoft.Json.dll"/>
+        <include name="Automapper.dll"/>
       </references>
     </csc>
   </target>

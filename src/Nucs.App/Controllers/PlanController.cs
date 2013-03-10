@@ -6,26 +6,31 @@ using System.Net.Http;
 using System.Web.Http;
 using Nucs.Core.Mapping;
 using Nucs.Core.Model.External;
+using Nucs.Core.Model.Internal;
 using Nucs.Core.Storage;
 
 namespace Nucs.App.Controllers {
   public class PlanController : ApiController {
-    public PlanController(IPlanSpecRepository repo) {
+    public PlanController(IPlanSpecRepository repo, IObjectMapper mapper) {
       mRepo = repo;
+      mMapper = mapper;
     }
 
     public IEnumerable<Plan> GetAllPlans() {
-      return PlanMapper.ToPlan(mRepo.List());
+      return mMapper
+        .Map<Plan[]>(mRepo.List());
     }
 
     public Plan GetPlan(string id) {
-      return PlanMapper.ToPlan(mRepo.List().Where(plan => plan.ID == id)).First();
+      return mMapper
+        .Map<Plan>(mRepo.List()
+                        .First(plan => plan.ID == id));
     }
 
     public HttpResponseMessage PostPlan(Plan plan) {
-      var spec = PlanMapper.ToSpec(plan);
+      var spec = mMapper.Map<PlanSpec>(plan);
       mRepo.Add(spec);
-      plan = PlanMapper.ToPlan(spec);
+      plan = mMapper.Map<Plan>(spec);
 
       var response = Request.CreateResponse(HttpStatusCode.Created, plan);
       response.Headers.Location = new Uri(Url.Link("defaultapi", new {id = plan.ID}));
@@ -33,13 +38,14 @@ namespace Nucs.App.Controllers {
     }
 
     public void PutPlan(Plan plan) {
-      mRepo.Update(PlanMapper.ToSpec(plan));
+      mRepo.Update(mMapper.Map<PlanSpec>(plan));
     }
 
     public void DeletePlan(string id) {
       mRepo.Delete(id);
     }
 
+    private readonly IObjectMapper mMapper;
     private readonly IPlanSpecRepository mRepo;
   }
 }

@@ -36,6 +36,11 @@
       <HintPath>..\..\vsdebug\Autofac.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\AutoMapper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=1.6.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vsdebug\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
@@ -94,7 +99,7 @@
     <Compile Include="App\Controllers\Js\JsControllerTest.cs" />
     <Compile Include="App\Controllers\PlanControllerTest.cs" />
     <Compile Include="App\Dependency\DependencyResolverTest.cs" />
-    <Compile Include="Core\Mapping\PlanMapperTest.cs" />
+    <Compile Include="Core\Mapping\MapperConfigurationTest.cs" />
     <Compile Include="Core\Model\External\PlanTest.cs" />
     <Compile Include="Core\Model\Internal\PlanSpecTest.cs" />
     <Compile Include="Core\Storage\PlanSpecRepositoryTest.cs" />

@@ -8,6 +8,7 @@ namespace Nucs.App.Dependency.Modules {
     }
 
     public void Initialize(ContainerBuilder builder) {
+      builder.RegisterModule(new MappingModule());
       builder.RegisterModule(new AbstractionsModule());
       builder.RegisterModule(new IndexControllerModule(mConfig));
       builder.RegisterModule(new CssControllerModule(mConfig));

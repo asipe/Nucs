@@ -31,6 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vsdebug\AutoMapper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\vsdebug\Newtonsoft.Json.dll</HintPath>
@@ -47,7 +52,9 @@
     <Compile Include="..\Properties\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Mapping\PlanMapper.cs" />
+    <Compile Include="Mapping\IObjectMapper.cs" />
+    <Compile Include="Mapping\MapperConfiguration.cs" />
+    <Compile Include="Mapping\ObjectMapper.cs" />
     <Compile Include="Model\External\Plan.cs" />
     <Compile Include="Model\Internal\PlanSpec.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
