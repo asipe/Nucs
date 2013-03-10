@@ -112,6 +112,7 @@
         <include name="Newtonsoft.Json.dll"/>
         <include name="SupaCharge.Core.dll"/>
         <include name="MadCat.Core.dll"/>
+        <include name="Automapper.dll"/>
       </fileset>
     </copy>
 
