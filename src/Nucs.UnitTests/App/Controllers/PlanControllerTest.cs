@@ -20,36 +20,36 @@ namespace Nucs.UnitTests.App.Controllers {
   public class PlanControllerTest : NucsBaseTestCase {
     [Test]
     public void TestGetAllPlansWithNoPlansGivesEmtpy() {
-      var specs = BA<Plan>();
-      mRepo.Setup(r => r.List()).Returns(specs);
-      mMapper.Setup(m => m.Map<PlanDto[]>(specs)).Returns(BA<PlanDto>());
+      var plans = BA<Plan>();
+      mRepo.Setup(r => r.List()).Returns(plans);
+      mMapper.Setup(m => m.Map<PlanDto[]>(plans)).Returns(BA<PlanDto>());
       Assert.That(mController.GetAllPlans(), Is.Empty);
     }
 
     [Test]
     public void TetGetAllPlansWithPlans() {
-      var plans = CM<PlanDto>();
-      var specs = CM<Plan>();
-      mRepo.Setup(r => r.List()).Returns(specs);
-      mMapper.Setup(m => m.Map<PlanDto[]>(specs)).Returns(plans);
-      Compare(mController.GetAllPlans().ToArray(), plans);
+      var plandtos = CM<PlanDto>();
+      var plans = CM<Plan>();
+      mRepo.Setup(r => r.List()).Returns(plans);
+      mMapper.Setup(m => m.Map<PlanDto[]>(plans)).Returns(plandtos);
+      Compare(mController.GetAllPlans().ToArray(), plandtos);
     }
 
     [Test]
     public void TestGetSinglePlanByIDExists() {
-      var plans = CM<PlanDto>();
-      var specs = CM<Plan>();
-      mRepo.Setup(r => r.List()).Returns(specs);
-      mMapper.Setup(m => m.Map<PlanDto>(specs[0])).Returns(plans[0]);
-      Compare(mController.GetPlan(specs[0].ID), plans[0]);
-      mMapper.Setup(m => m.Map<PlanDto>(specs[2])).Returns(plans[2]);
-      Compare(mController.GetPlan(specs[2].ID), plans[2]);
+      var plandtos = CM<PlanDto>();
+      var plans = CM<Plan>();
+      mRepo.Setup(r => r.List()).Returns(plans);
+      mMapper.Setup(m => m.Map<PlanDto>(plans[0])).Returns(plandtos[0]);
+      Compare(mController.GetPlan(plans[0].ID), plandtos[0]);
+      mMapper.Setup(m => m.Map<PlanDto>(plans[2])).Returns(plandtos[2]);
+      Compare(mController.GetPlan(plans[2].ID), plandtos[2]);
     }
 
     [Test]
     public void TestGetSinglePlanByIDWhichDoesNotExistThrows() {
-      var specs = CM<Plan>();
-      mRepo.Setup(r => r.List()).Returns(specs);
+      var plans = CM<Plan>();
+      mRepo.Setup(r => r.List()).Returns(plans);
       Assert.Throws<InvalidOperationException>(() => mController.GetPlan(CA<string>()));
     }
 
@@ -61,8 +61,8 @@ namespace Nucs.UnitTests.App.Controllers {
 
     [Test]
     public void TestCreatePlan() {
-      var plan = CA<PlanDto>();
-      var spec = CA<Plan>();
+      var plandto = CA<PlanDto>();
+      var plan = CA<Plan>();
       var config = new HttpConfiguration();
       using (var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/plans")) {
         var routeData = new HttpRouteData(config.Routes.MapHttpRoute("defaultapi", "api/{controller}/{id}"), new HttpRouteValueDictionary { { "controller", "plans" } });
@@ -71,38 +71,38 @@ namespace Nucs.UnitTests.App.Controllers {
         mController.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
         mController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
 
-        mMapper.Setup(m => m.Map<Plan>(plan)).Returns(spec);
-        mRepo.Setup(r => r.Add(It.Is<Plan>(s => IsEqual(s, spec))));
-        mMapper.Setup(m => m.Map<PlanDto>(spec)).Returns(plan);
-        using (var response = mController.PostPlan(plan)) {
+        mMapper.Setup(m => m.Map<Plan>(plandto)).Returns(plan);
+        mRepo.Setup(r => r.Add(It.Is<Plan>(s => IsEqual(s, plan))));
+        mMapper.Setup(m => m.Map<PlanDto>(plan)).Returns(plandto);
+        using (var response = mController.PostPlan(plandto)) {
           Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
-          Assert.That(response.Headers.Location.AbsoluteUri, Is.EqualTo("http://localhost/api/plans/" + plan.ID));
+          Assert.That(response.Headers.Location.AbsoluteUri, Is.EqualTo("http://localhost/api/plans/" + plandto.ID));
           var result = response.Content.ReadAsStringAsync();
           result.Wait();
           var actual = JsonConvert.DeserializeObject<PlanDto>(result.Result);
-          Compare(actual, plan);
+          Compare(actual, plandto);
         }
       }
     }
 
     [Test]
     public void TestPutPlan() {
-      var plan = CA<PlanDto>();
-      var spec = CA<Plan>();
-      mMapper.Setup(m => m.Map<Plan>(plan)).Returns(spec);
-      mRepo.Setup(r => r.Update(spec));
-      mController.PutPlan(plan);
+      var plandto = CA<PlanDto>();
+      var plan = CA<Plan>();
+      mMapper.Setup(m => m.Map<Plan>(plandto)).Returns(plan);
+      mRepo.Setup(r => r.Update(plan));
+      mController.PutPlan(plandto);
     }
 
     [SetUp]
     public void DoSetup() {
       mMapper = Mok<IObjectMapper>();
-      mRepo = Mok<IPlanSpecRepository>();
+      mRepo = Mok<IPlanRepository>();
       mController = new PlanController(mRepo.Object, mMapper.Object);
     }
 
     private PlanController mController;
-    private Mock<IPlanSpecRepository> mRepo;
+    private Mock<IPlanRepository> mRepo;
     private Mock<IObjectMapper> mMapper;
   }
 }

@@ -9,7 +9,7 @@ using SupaCharge.Core.OID;
 
 namespace Nucs.UnitTests.Core.Storage {
   [TestFixture]
-  public class PlanSpecRepositoryTest : NucsBaseTestCase {
+  public class PlanRepositoryTest : NucsBaseTestCase {
     [Test]
     public void TestListWhenEmpty() {
       var files = BA<string>();
@@ -76,13 +76,13 @@ namespace Nucs.UnitTests.Core.Storage {
       mDirectory = Mok<IDirectory>();
       mSerializer = Mok<ISerializer>();
       mOIDProvider = Mok<IOIDProvider>();
-      mRepo = new PlanSpecRepository(_Path, mFile.Object, mDirectory.Object, mSerializer.Object, mOIDProvider.Object);
+      mRepo = new PlanRepository(_Path, mFile.Object, mDirectory.Object, mSerializer.Object, mOIDProvider.Object);
     }
 
     private const string _Path = @"c:\data\";
     private Mock<IFile> mFile;
     private Mock<ISerializer> mSerializer;
-    private PlanSpecRepository mRepo;
+    private PlanRepository mRepo;
     private Mock<IDirectory> mDirectory;
     private Mock<IOIDProvider> mOIDProvider;
   }

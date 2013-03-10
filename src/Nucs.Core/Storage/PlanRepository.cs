@@ -7,8 +7,8 @@ using SupaCharge.Core.IOAbstractions;
 using SupaCharge.Core.OID;
 
 namespace Nucs.Core.Storage {
-  public class PlanSpecRepository : IPlanSpecRepository {
-    public PlanSpecRepository(string storePath,
+  public class PlanRepository : IPlanRepository {
+    public PlanRepository(string storePath,
                               IFile file,
                               IDirectory directory,
                               ISerializer serializer,

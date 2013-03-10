@@ -59,8 +59,8 @@
     <Compile Include="Model\Internal\Plan.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\Serializer.cs" />
-    <Compile Include="Storage\IPlanSpecRepository.cs" />
-    <Compile Include="Storage\PlanSpecRepository.cs" />
+    <Compile Include="Storage\IPlanRepository.cs" />
+    <Compile Include="Storage\PlanRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

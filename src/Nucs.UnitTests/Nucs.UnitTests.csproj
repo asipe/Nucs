@@ -102,7 +102,7 @@
     <Compile Include="Core\Mapping\MapperConfigurationTest.cs" />
     <Compile Include="Core\Model\External\PlanDtoTest.cs" />
     <Compile Include="Core\Model\Internal\PlanTest.cs" />
-    <Compile Include="Core\Storage\PlanSpecRepositoryTest.cs" />
+    <Compile Include="Core\Storage\PlanRepositoryTest.cs" />
     <Compile Include="NucsBaseTestCase.cs" />
     <Compile Include="Serialization\SerializerTest.cs" />
   </ItemGroup>
