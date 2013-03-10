@@ -3,10 +3,10 @@ using Nucs.Core.Model.Internal;
 
 namespace Nucs.UnitTests.Core.Model.Internal {
   [TestFixture]
-  public class PlanSpecTest : NucsBaseTestCase {
+  public class PlanTest : NucsBaseTestCase {
     [Test]
     public void TestDefaults() {
-      var plan = new PlanSpec();
+      var plan = new Plan();
       Assert.That(plan.Executable, Is.Null);
       Assert.That(plan.Assembly, Is.Null);
       Assert.That(plan.Run, Is.Null);

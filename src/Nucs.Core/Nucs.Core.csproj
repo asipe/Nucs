@@ -56,7 +56,7 @@
     <Compile Include="Mapping\MapperConfiguration.cs" />
     <Compile Include="Mapping\ObjectMapper.cs" />
     <Compile Include="Model\External\PlanDto.cs" />
-    <Compile Include="Model\Internal\PlanSpec.cs" />
+    <Compile Include="Model\Internal\Plan.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\Serializer.cs" />
     <Compile Include="Storage\IPlanSpecRepository.cs" />

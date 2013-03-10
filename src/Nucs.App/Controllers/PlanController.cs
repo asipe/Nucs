@@ -28,7 +28,7 @@ namespace Nucs.App.Controllers {
     }
 
     public HttpResponseMessage PostPlan(PlanDto plan) {
-      var spec = mMapper.Map<PlanSpec>(plan);
+      var spec = mMapper.Map<Plan>(plan);
       mRepo.Add(spec);
       plan = mMapper.Map<PlanDto>(spec);
 
@@ -38,7 +38,7 @@ namespace Nucs.App.Controllers {
     }
 
     public void PutPlan(PlanDto plan) {
-      mRepo.Update(mMapper.Map<PlanSpec>(plan));
+      mRepo.Update(mMapper.Map<Plan>(plan));
     }
 
     public void DeletePlan(string id) {

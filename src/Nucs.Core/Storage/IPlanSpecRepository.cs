@@ -3,9 +3,9 @@ using Nucs.Core.Model.Internal;
 
 namespace Nucs.Core.Storage {
   public interface IPlanSpecRepository {
-    IEnumerable<PlanSpec> List();
-    void Add(PlanSpec plan);
+    IEnumerable<Plan> List();
+    void Add(Plan plan);
     void Delete(string id);
-    void Update(PlanSpec plan);
+    void Update(Plan plan);
   }
 }

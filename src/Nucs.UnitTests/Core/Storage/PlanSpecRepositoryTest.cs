@@ -21,10 +21,10 @@ namespace Nucs.UnitTests.Core.Storage {
     public void TestListSinglePlan() {
       var files = CM<string>(1);
       var jsons = CM<string>(1);
-      var plans = CM<PlanSpec>(1);
+      var plans = CM<Plan>(1);
       mDirectory.Setup(d => d.GetFiles(_Path, "*.json")).Returns(files);
       mFile.Setup(f => f.ReadAllText(_Path + files[0])).Returns(jsons[0]);
-      mSerializer.Setup(s => s.Deserialize<PlanSpec>(jsons[0])).Returns(plans[0]);
+      mSerializer.Setup(s => s.Deserialize<Plan>(jsons[0])).Returns(plans[0]);
       Assert.That(mRepo.List(), Is.EqualTo(plans));
     }
 
@@ -32,19 +32,19 @@ namespace Nucs.UnitTests.Core.Storage {
     public void TestListMultiplePlans() {
       var files = CM<string>();
       var jsons = CM<string>();
-      var plans = CM<PlanSpec>();
+      var plans = CM<Plan>();
       mDirectory.Setup(d => d.GetFiles(_Path, "*.json")).Returns(files);
       for (var x = 0; x < 3; x++) {
         var x1 = x;
         mFile.Setup(f => f.ReadAllText(_Path + files[x1])).Returns(jsons[x1]);
-        mSerializer.Setup(s => s.Deserialize<PlanSpec>(jsons[x1])).Returns(plans[x1]);
+        mSerializer.Setup(s => s.Deserialize<Plan>(jsons[x1])).Returns(plans[x1]);
       }
       Assert.That(mRepo.List(), Is.EqualTo(plans));
     }
 
     [Test]
     public void TestAddPlan() {
-      var plan = CA<PlanSpec>();
+      var plan = CA<Plan>();
       var json = CA<string>();
       mOIDProvider.Setup(p => p.GetID()).Returns("ABC");
       mSerializer.Setup(s => s.Serialize(plan)).Returns(json);
@@ -62,7 +62,7 @@ namespace Nucs.UnitTests.Core.Storage {
 
     [Test]
     public void TestUpdatePlan() {
-      var plan = CA<PlanSpec>();
+      var plan = CA<Plan>();
       var json = CA<string>();
       plan.ID = "ABC";
       mSerializer.Setup(s => s.Serialize(plan)).Returns(json);

@@ -20,7 +20,7 @@ namespace Nucs.UnitTests.App.Controllers {
   public class PlanControllerTest : NucsBaseTestCase {
     [Test]
     public void TestGetAllPlansWithNoPlansGivesEmtpy() {
-      var specs = BA<PlanSpec>();
+      var specs = BA<Plan>();
       mRepo.Setup(r => r.List()).Returns(specs);
       mMapper.Setup(m => m.Map<PlanDto[]>(specs)).Returns(BA<PlanDto>());
       Assert.That(mController.GetAllPlans(), Is.Empty);
@@ -29,7 +29,7 @@ namespace Nucs.UnitTests.App.Controllers {
     [Test]
     public void TetGetAllPlansWithPlans() {
       var plans = CM<PlanDto>();
-      var specs = CM<PlanSpec>();
+      var specs = CM<Plan>();
       mRepo.Setup(r => r.List()).Returns(specs);
       mMapper.Setup(m => m.Map<PlanDto[]>(specs)).Returns(plans);
       Compare(mController.GetAllPlans().ToArray(), plans);
@@ -38,7 +38,7 @@ namespace Nucs.UnitTests.App.Controllers {
     [Test]
     public void TestGetSinglePlanByIDExists() {
       var plans = CM<PlanDto>();
-      var specs = CM<PlanSpec>();
+      var specs = CM<Plan>();
       mRepo.Setup(r => r.List()).Returns(specs);
       mMapper.Setup(m => m.Map<PlanDto>(specs[0])).Returns(plans[0]);
       Compare(mController.GetPlan(specs[0].ID), plans[0]);
@@ -48,7 +48,7 @@ namespace Nucs.UnitTests.App.Controllers {
 
     [Test]
     public void TestGetSinglePlanByIDWhichDoesNotExistThrows() {
-      var specs = CM<PlanSpec>();
+      var specs = CM<Plan>();
       mRepo.Setup(r => r.List()).Returns(specs);
       Assert.Throws<InvalidOperationException>(() => mController.GetPlan(CA<string>()));
     }
@@ -62,7 +62,7 @@ namespace Nucs.UnitTests.App.Controllers {
     [Test]
     public void TestCreatePlan() {
       var plan = CA<PlanDto>();
-      var spec = CA<PlanSpec>();
+      var spec = CA<Plan>();
       var config = new HttpConfiguration();
       using (var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/plans")) {
         var routeData = new HttpRouteData(config.Routes.MapHttpRoute("defaultapi", "api/{controller}/{id}"), new HttpRouteValueDictionary { { "controller", "plans" } });
@@ -71,8 +71,8 @@ namespace Nucs.UnitTests.App.Controllers {
         mController.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
         mController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
 
-        mMapper.Setup(m => m.Map<PlanSpec>(plan)).Returns(spec);
-        mRepo.Setup(r => r.Add(It.Is<PlanSpec>(s => IsEqual(s, spec))));
+        mMapper.Setup(m => m.Map<Plan>(plan)).Returns(spec);
+        mRepo.Setup(r => r.Add(It.Is<Plan>(s => IsEqual(s, spec))));
         mMapper.Setup(m => m.Map<PlanDto>(spec)).Returns(plan);
         using (var response = mController.PostPlan(plan)) {
           Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
@@ -88,8 +88,8 @@ namespace Nucs.UnitTests.App.Controllers {
     [Test]
     public void TestPutPlan() {
       var plan = CA<PlanDto>();
-      var spec = CA<PlanSpec>();
-      mMapper.Setup(m => m.Map<PlanSpec>(plan)).Returns(spec);
+      var spec = CA<Plan>();
+      mMapper.Setup(m => m.Map<Plan>(plan)).Returns(spec);
       mRepo.Setup(r => r.Update(spec));
       mController.PutPlan(plan);
     }

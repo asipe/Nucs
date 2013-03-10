@@ -20,15 +20,15 @@ namespace Nucs.Core.Storage {
       mOIDProvider = oidProvider;
     }
 
-    public IEnumerable<PlanSpec> List() {
+    public IEnumerable<Plan> List() {
       return mDirectory
         .GetFiles(mStorePath, "*.json")
         .Select(path => mFile.ReadAllText(BuildPlanFilePath(path)))
-        .Select(json => mSerializer.Deserialize<PlanSpec>(json))
+        .Select(json => mSerializer.Deserialize<Plan>(json))
         .ToArray();
     }
 
-    public void Add(PlanSpec plan) {
+    public void Add(Plan plan) {
       plan.ID = mOIDProvider.GetID();
       mFile.WriteAllText(BuildPlanFilePath(plan), mSerializer.Serialize(plan));
     }
@@ -37,11 +37,11 @@ namespace Nucs.Core.Storage {
       mFile.Delete(BuildPlanFilePath(BuildPlanFileName(id)));
     }
 
-    public void Update(PlanSpec plan) {
+    public void Update(Plan plan) {
       mFile.WriteAllText(BuildPlanFilePath(plan), mSerializer.Serialize(plan));
     }
 
-    private string BuildPlanFilePath(PlanSpec plan) {
+    private string BuildPlanFilePath(Plan plan) {
       return BuildPlanFilePath(BuildPlanFileName(plan));
     }
 
@@ -49,7 +49,7 @@ namespace Nucs.Core.Storage {
       return Path.Combine(mStorePath, planFileName);
     }
 
-    private static string BuildPlanFileName(PlanSpec plan) {
+    private static string BuildPlanFileName(Plan plan) {
       return BuildPlanFileName(plan.ID);
     }
 
