@@ -24,7 +24,7 @@ namespace Nucs.App.Controllers {
     public PlanDto GetPlan(string id) {
       return mMapper
         .Map<PlanDto>(mRepo.List()
-                        .First(plan => plan.ID == id));
+                           .First(plan => plan.ID == id));
     }
 
     public HttpResponseMessage PostPlan(PlanDto plandto) {

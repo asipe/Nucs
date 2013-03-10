@@ -65,7 +65,7 @@ namespace Nucs.UnitTests.App.Controllers {
       var plan = CA<Plan>();
       var config = new HttpConfiguration();
       using (var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/plans")) {
-        var routeData = new HttpRouteData(config.Routes.MapHttpRoute("defaultapi", "api/{controller}/{id}"), new HttpRouteValueDictionary { { "controller", "plans" } });
+        var routeData = new HttpRouteData(config.Routes.MapHttpRoute("defaultapi", "api/{controller}/{id}"), new HttpRouteValueDictionary {{"controller", "plans"}});
         mController.ControllerContext = new HttpControllerContext(config, routeData, request);
         mController.Request = request;
         mController.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;

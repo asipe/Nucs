@@ -9,10 +9,10 @@ using SupaCharge.Core.OID;
 namespace Nucs.Core.Storage {
   public class PlanRepository : IPlanRepository {
     public PlanRepository(string storePath,
-                              IFile file,
-                              IDirectory directory,
-                              ISerializer serializer,
-                              IOIDProvider oidProvider) {
+                          IFile file,
+                          IDirectory directory,
+                          ISerializer serializer,
+                          IOIDProvider oidProvider) {
       mStorePath = storePath;
       mFile = file;
       mDirectory = directory;
