@@ -61,7 +61,7 @@
     </csc>
   </target>
   
-  <target name="Build.Nucs.App" depends="Build.Nucs.Core">
+  <target name="Build.Nucs.App">
     <csc debug="${debug.status}" target="library" output="${debug.dir}\Nucs.App.dll" warnaserror="true">
       <sources basedir="${src.dir}">
         <include name="Nucs.App\**\*.cs"/>
@@ -81,7 +81,7 @@
     </csc>
   </target>
 
-  <target name="Build.Nucs.Console" depends="Build.Nucs.App">
+  <target name="Build.Nucs.Console">
     <property name="exe.output.dir" value="${apps.dir}\Nucs.Console"/>
     
     <mkdir dir="${exe.output.dir}" />
@@ -131,7 +131,7 @@
     <copy file="${exe.output.dir}\App.config" tofile="${exe.output.dir}\nucs.exe.config" verbose="${verbose}"/>
   </target>
 
-  <target name="Build.Nucs.UnitTests" depends="Build.Nucs.App">
+  <target name="Build.Nucs.UnitTests">
     <csc debug="${debug.status}" target="library" output="${debug.dir}\Nucs.UnitTests.dll" warnaserror="true">
       <sources basedir="${src.dir}">
         <include name="Nucs.UnitTests\**\*.cs"/>
@@ -157,7 +157,9 @@
     </csc>
   </target>
 
-  <target name="Build.All" depends="Build.Nucs.Console,
+  <target name="Build.All" depends="Build.Nucs.Core,
+                                    Build.Nucs.App,
+                                    Build.Nucs.Console,
                                     Build.Nucs.UnitTests"/>
   
   <target name="Run_Nucs.UnitTests" depends="Build.Nucs.UnitTests">
