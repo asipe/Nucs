@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 
 namespace Nucs.Core.Serialization {
-  public class Serializer : ISerializer {
+  public class JsonSerializer : ISerializer {
     public string Serialize(object obj) {
       return JsonConvert.SerializeObject(obj);
     }

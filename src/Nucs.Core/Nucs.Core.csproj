@@ -58,7 +58,7 @@
     <Compile Include="Model\External\PlanDto.cs" />
     <Compile Include="Model\Internal\Plan.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
-    <Compile Include="Serialization\Serializer.cs" />
+    <Compile Include="Serialization\JsonSerializer.cs" />
     <Compile Include="Storage\IPlanRepository.cs" />
     <Compile Include="Storage\PlanRepository.cs" />
   </ItemGroup>

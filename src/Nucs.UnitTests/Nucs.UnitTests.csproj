@@ -104,7 +104,7 @@
     <Compile Include="Core\Model\Internal\PlanTest.cs" />
     <Compile Include="Core\Storage\PlanRepositoryTest.cs" />
     <Compile Include="NucsBaseTestCase.cs" />
-    <Compile Include="Serialization\SerializerTest.cs" />
+    <Compile Include="Serialization\JsonSerializerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

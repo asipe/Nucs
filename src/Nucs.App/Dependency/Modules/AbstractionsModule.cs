@@ -19,7 +19,7 @@ namespace Nucs.App.Dependency.Modules {
         .As<IDirectory>();
 
       builder
-        .RegisterType<Serializer>()
+        .RegisterType<JsonSerializer>()
         .SingleInstance()
         .As<ISerializer>();
 
