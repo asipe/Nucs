@@ -101,6 +101,8 @@
     <Compile Include="App\Dependency\DependencyResolverTest.cs" />
     <Compile Include="Core\Mapping\MapperConfigurationTest.cs" />
     <Compile Include="Core\Model\External\PlanDtoTest.cs" />
+    <Compile Include="Core\Model\Internal\EventQueueTest.cs" />
+    <Compile Include="Core\Model\Internal\EventTest.cs" />
     <Compile Include="Core\Model\Internal\PlanTest.cs" />
     <Compile Include="Core\Storage\PlanRepositoryTest.cs" />
     <Compile Include="NucsBaseTestCase.cs" />
